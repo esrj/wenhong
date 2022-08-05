@@ -1,0 +1,242 @@
+{% extends 'index.html' %}
+
+
+{% block nav %}
+
+<style>
+
+    .site-navigation {
+        padding: 0px;
+        border-bottom: 1px solid #EBF4F8;
+    }
+    .navbar-brand img {
+        width: 236px;
+        height: 45px;
+}
+</style>
+<header>
+
+    <!-- Main Menu Start -->
+
+    <div class="site-navigation main_menu menu-transparent" id="mainmenu-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid container-padding">
+                <a class="navbar-brand" >
+                    <img src="/img/logo_4.png"  class="img-fluid">
+                </a>
+
+                <!-- Toggler -->
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarMenu">
+
+                    <ul class="navbar-nav mx-auto">
+
+
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/" role="button" >
+                                 報名狀況
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/create/" role="button" >
+                                 創建學員
+                            </a>
+
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/info/" role="button" >
+                                 新增課程
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/upload/" role="button" >
+                                 上傳教材
+                            </a>
+
+
+                            <a style = "color:#6C6C6C" onclick="logout_()" class="nav-link">
+                                登出
+                            </a>
+                    </div>
+                </div> <!-- / .navbar-collapse -->
+            </div> <!-- / .container -->
+        </nav>
+    </div>
+</header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script>
+        function logout_(){
+            swal({
+                'title':'確定要登出嗎',
+                'text':'',
+                'buttons':['取消','確認'],
+                'icon':'info',
+            }).then(confirm=>{
+                if(confirm) {
+                    axios.post('/myadmin/logout/').then(()=>{
+                        swal({
+                            'title':'已登出',
+                            'text':'正在導向主頁面',
+                            'buttons':false,
+                            'icon':'success',
+                            'timer':1500,
+                        })
+                        setTimeout(()=>{
+                            location.href = '/'
+                        },1500)
+                    })
+                }
+            })
+        }
+</script>
+{% endblock %}
+{% block content %}
+
+<style>
+    .icon{
+      background-color: #f1f2f3;
+      border-radius: 50%;
+      width :45px;
+      height :45px;
+      margin-bottom: 15px;
+      margin-right: 15px;
+      margin-top: 15px;
+      color: white;
+      border-color: #063547;
+    }
+    .img{
+      width: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      border-width: 2px;
+      border: #6c757d;
+    }
+    .fixed-top {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+  }
+  .box{
+    border-radius: 10px;
+  }
+  .btn{
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #44b89d;
+    color: #ffffff;
+    border-radius: 45px;
+    border: 1px solid #44b89d;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    margin: 3px;
+    margin-top: 15px;
+  }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<div class="content" >
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-md-8" style="margin-right: auto;margin-left: auto;margin-top :30px;">
+                <label style="margin-top: 10px"  class="form-label">上傳課程附件</label>
+                <form id="select_form">
+                    <select id = "all_course" class="form-select" aria-label="Default select example">
+                        <option selected>請選擇課程</option>
+                    </select>
+                </form>
+                <div id="list"></div>
+                <form id="form" enctype="multipart/form-data">
+                    <input style="margin-top: 10px;" id="file" name="file"  class="form-control" type="file">
+                    <div id="course_index"></div>
+                    <button style="margin-left: 0px;margin-bottom: 40px" type="button" onclick="submit__()" class="btn btn-light">提交</button>
+                </form>
+                <div id ="temp"></div>
+                <div id = "course">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/assets/vendors/jquery/jquery.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script>
+
+
+    axios.post('/myadmin/upload/').then((res)=>{
+        data = res.data.data
+        console.log(data)
+        data.forEach(item=>{
+            $("#all_course").append(`
+                <option value="${item.id}">${item.name}</option>
+            `)
+        })
+    })
+
+    function submit__(){
+        let formdata = new FormData();
+        const file =  $('#form')[0][0].files[0].name
+        const id = $('#all_course')[0]['value']
+        formdata.append('file',$('#form')[0][0].files[0]);
+        formdata.append('id',$('#all_course')[0]['value'])
+        axios({
+            url:'/myadmin/document/',
+            method:'post',
+            data:formdata,
+            headers:{'Content-Type': 'multipart/form-data;charset=UTF-8'}
+        }).then(res=>{
+            if(res.data.errno == 0){
+                swal('成功新增','','success')
+                $('#list').append($(`
+                    <div id="document-${res.data.id}" style="margin-top: 15px;margin-bottom: 15px">
+                        <a style="margin-left: 5px;color: #017496">${file}</a> <a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${res.data.id})"><i class="fa fa-window-close"></i></a>
+                    </div>
+                `))
+            }
+        })
+    }
+    $("#select_form").change(()=>{
+          id = $('#all_course')[0]['value']
+          console.log(id)
+          axios.post(`/myadmin/load_document/${id}/`).then(res=>{
+              data = res.data.documents
+              $("#list").empty()
+              data.forEach(item=>{
+                  $('#list').append($(`
+                      <div id = "document-${item.id}" style="margin-top: 15px;margin-bottom: 15px">
+                           <a  style="margin-left: 5px;color: #017496">${item.title}</a><a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${item.id})"><i class="fa fa-window-close"></i></a>
+                      </div>
+                  `))
+              })
+          })
+    })
+    function delete_(id){
+        swal({
+            title:'確定要刪除？',
+            text:'資料將被永久刪除',
+            buttons: ['取消','確定'],
+            icon:'info'
+        }).then(confirm=>{
+            if(confirm){
+                 axios.post(`/myadmin/delete_/${id}/`).then(res=>{
+                    if(res.data.errno == 0) {
+                        swal('已刪除', '', 'success')
+                        $(`#document-${id}`).remove()
+                    }
+                })
+            }
+        })
+    }
+</script>
+
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

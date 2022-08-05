@@ -1,0 +1,865 @@
+﻿
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="Education LMS template by Dreambuzz">
+  <meta name="keywords" content="Eduhash,education,lms,seo,course,online,learning,caoch,training,tutor">
+  <meta name="author" content="themeturn.com">
+
+  <title>文宏教育</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="stylesheet" href="/assets/css/style_.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+
+  <link rel="stylesheet" href="/assets/vendors/bootstrap/bootstrap.css">
+  <!-- Iconfont Css -->
+  <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.css">
+  <link rel="stylesheet" href="/assets/vendors/flaticon/flaticon.css">
+  <!-- animate.css -->
+  <link rel="stylesheet" href="/assets/vendors/animate-css/animate.css">
+  <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.theme.default.min.css">
+
+
+</head>
+
+<body id="top-header">
+
+
+{% block nav %}
+<style>
+    .site-navigation {
+        padding: 0px;
+        border-bottom: 1px solid #EBF4F8;
+    }
+    .navbar-brand img {
+        width: 236px;
+        height: 45px;
+}
+</style>
+
+<header>
+
+    <!-- Main Menu Start -->
+
+    <div class="site-navigation main_menu menu-transparent" id="mainmenu-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid container-padding">
+                <a class="navbar-brand" >
+                    <img src="/img/logo_4.png"  class="img-fluid">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav mx-auto"></ul>
+                    <div class="d-flex align-items-center">
+                        <a style = "color:#001328" href="#service" class="nav-link" >
+                            服務項目
+                        </a>
+                        <a style = "color:#001328" href="#contact" class="nav-link"   >
+                            聯絡我們
+                        </a>
+                        <a style = "color:#001328" href="/learning/" class="nav-link">
+                            學員登入
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+{% endblock %}
+
+
+
+
+{% block content %}
+<!-- Banner Section Start -->
+<style>
+
+    .video-icon {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        z-index: 3;
+        text-align: center;
+        padding-top: 29px;
+        font-size: 30px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        transform: translateY(-50%) translateX(-50%);
+        background-color: #20ad96;
+        border-radius: 100%;
+        color: #fff;
+    }
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        color: #212529;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #f5f6f8;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .btn:hover{
+        background-color: #001327;
+        border: #001327;
+        color: #f7f7f7;
+    }
+    .about-text-block .icon-box {
+        color: #20ad96;
+        width: 85px;
+        height: 85px;
+        text-align: center;
+        background: #F7F5F4;
+        font-size: 40px;
+        margin-right: 30px;
+        padding-top: 15px;
+        border-radius: 100%;
+        float: left;
+        position: relative;
+    }
+    .left {
+        padding-left: 3rem ;
+    }
+    @media (max-width: 991px) {
+        .counter-item .count {
+            margin: 10px 0px 10px;
+        }
+        .counter-item p {
+            margin-bottom: 35px;
+        }
+    }
+    @media (max-width: 868px) {
+        .section-heading h3 {
+            font-size: 35px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+        .left{
+            padding: 2rem;
+            padding-top: 1rem;
+        }
+
+    }
+    @media(max-width:767px){
+        .section-heading h3 {
+            font-size: 32px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+        .font-weight-normal {
+            font-size: smaller;
+            font-weight: 400 !important;
+        }
+        .center-heading p {
+            padding: 0px 10px;
+        }
+        .phone-style{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+
+        }
+    }
+
+    @media (max-width: 568px) {
+            .section-heading h3 {
+                font-size: 29px;
+                margin: 10px 0px 10px;
+                line-height: 44px;
+            }
+    }
+    @media (max-width: 468px) {
+        .font-weight-normal {
+            font-size: xx-large;
+            font-weight: 400 !important;
+        }
+        .section-heading h3 {
+            font-size: 27px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+        .center-heading p {
+             padding: 0px;
+        }
+    }
+    @media (max-width: 435px){
+        .section-heading h3 {
+            font-size: 25px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+    }
+    @media (max-width: 410px) {
+        .banner .banner-content p {
+            margin-bottom: 35px;
+            color: #fff;
+            opacity: .8;
+            font-size: 18px;
+            line-height: 38px;
+        }
+        .section-heading h3 {
+            font-size: 23px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+    }
+    @media (max-width: 398px){
+        .section-heading h3 {
+            font-size: 22px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+    }
+    @media (max-width: 382px){
+        .section-heading h3 {
+            font-size: 21px;
+            margin: 10px 0px 10px;
+            line-height: 44px;
+        }
+    }
+</style>
+<section class="banner">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-xl-7">
+                <div class="banner-content text-center">
+                    <span class="subheading" >文宏教育</span>
+                    <h1><span class="font-weight-normal" >文宏線上文理補習班</span></h1>
+                    <p>全台唯一台清交成政名師授課線上教學平台</p>
+                    <a style="opacity: 0.65" href="#contact" class="btn btn-tp" >聯絡我們 </a>
+                </div>
+            </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+</section>
+<!-- Banner Section end -->
+
+<!-- Feature section start -->
+<section class="feature section-padding pb-0">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-7">
+                <div class="section-heading center-heading">
+                    <span class="subheading">最大化你的潛能</span>
+                    <h3>習得高效讀書方法</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-3 col-md-6 col-xl-3" >
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="flaticon-flag"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>專業教師群</h4>
+                        <p style="margin-bottom: 0;">所有師資來自台灣頂大--台清交成政</p>
+                        <p style="margin-bottom: 2rem;">大學生、研究生、全職教師</p>
+                    </div>
+                </div>
+            </div>
+             <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="flaticon-layers"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>自我成長</h4>
+                        <p style="margin-bottom: 0;">學習自律、自主規劃</p>
+                        <p style="margin-bottom: 2rem;">培養你讀書的樂趣</p>
+                    </div>
+                </div>
+            </div>
+             <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="flaticon-video-camera"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>遠距授課</h4>
+                        <p style="margin-bottom: 0;">找個舒適的角落坐下來，享受學習</p>
+                        <p style="margin-bottom: 2rem;">錄製上課內容，以利複習</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="flaticon-help"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h4>翻轉討論室</h4>
+                        <p style="margin-bottom: 0;">相互討論、良性競爭</p>
+                        <p style="margin-bottom: 2rem;">無論是課業還是人生</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Feature section End -->
+<!-- About Section Start -->
+<section class="about-section section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6">
+                <div class="video-block">
+                    <img src="/assets/images/bg/about.jpg" alt="" class="img-fluid">
+<!--                    <a href="#" class="video-icon"><i class="fa fa-play"></i></a>-->
+               </div>
+            </div>
+
+            <div class="col-xl-6 left col-lg-6">
+                <div class="section-heading mt-4 mt-lg-0 ">
+                    <span class="subheading">加入我們</span>
+                    <h3>手把手帶領你 學習頂大思維<span></span></h3>
+                    <p>牛頓：「如果說我看得比別人遠，那是因為我站在巨人肩上」</p><p>參考曾經也是國、高中生的我們，是如何成功站上台灣前10%的舞台</p>
+
+                </div>
+                <ul class="about-features">
+                    <li>
+                        <i class="fa fa-check"></i>
+                        <h5>一對一教學</h5>
+                    </li>
+                    <li>
+                        <i class="fa fa-check"></i>
+                        <h5>完善課後輔導系統</h5>
+                    </li>
+                    <li>
+                        <i class="fa fa-check"></i>
+                        <h5>不同面向的人生建議</h5>
+                    </li>
+                </ul>
+
+                <a href="#contact" class="btn btn-main">聯絡我們</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Section END -->
+<section id="service" class="section-padding popular-course bg-grey">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-9">
+                <div class="section-heading center-heading">
+                    <span class="subheading">服務項目</span>
+                    <h3>什麼樣的課程適合我？部分課程報價</h3>
+                    <p>除了以下的國中部高中部以外，還提供小班制教學，學測、指考、會考衝刺班。也可以個制化您的需求，有什麼疑問都歡迎直接留言！我們悔有專員為您提供詳細地解說</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="course-block">
+                    <div class="course-img">
+                        <img src="/assets/images/course/course-1.jpg" alt="" class="img-fluid">
+                        <div class="course-price ">$700/hr </div>
+                    </div>
+
+                    <div class="course-content">
+                        <span class="course-cat">國中部</span>
+                        <h4><a >及早開始培養優良學習習慣，早鳥優惠一次買20堂＄11990</a></h4>
+                        <div class="course-meta">
+                            <span class="course-student"><i class="fa fa-user-alt"></i>99+ Students</span>
+<!--                            <span class="course-duration"><i class="far fa-file-alt"></i></span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="course-block">
+                    <div class="course-img">
+                        <img src="/assets/images/course/course-3.jpg" alt="" class="img-fluid">
+                        <div class="course-price ">$700/hr </div>
+                    </div>
+
+                    <div class="course-content">
+                        <span class="course-cat">高中部</span>
+                        <h4><a >支付低價享受最高價的待遇，早鳥優惠一次買20堂＄12900</a></h4>
+                        <div class="course-meta">
+                            <span class="course-student"><i class="fa fa-user-alt"></i>99+ Students</span>
+<!--                            <span class="course-duration"><i class="far fa-file-alt"></i>82 Lessons</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="course-block">
+                    <div class="course-img">
+                        <img src="/assets/images/course/course-2.jpg" alt="" class="img-fluid">
+                        <div class="course-price ">$？ </div>
+                    </div>
+
+                    <div class="course-content">
+                        <span class="course-cat">小班制教學</span>
+                        <h4><a>三人成班，越多人價格越便宜，時間皆可配合，歡迎留言詢問</a></h4>
+
+                        <div class="course-meta">
+                            <span class="course-student"><i class="fa fa-user-alt"></i>99+ Students</span>
+<!--                            <span class="course-duration"><i class="far fa-file-alt"></i>82 Lessons</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- COunter Section start -->
+
+<!-- COunter Section END -->
+
+
+
+
+
+<!-- About Section Start -->
+<section class="about-section section-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-xl-6 col-lg-6">
+                <div class="section-heading ">
+                    <span class="subheading">沒時間選老師嗎？</span>
+                    <h3>100% 師資保障</h3>
+                    <p>低於10%的教師合格率，教師嚴選流程如下</p>
+                </div>
+
+                <div class="about-text-block">
+                    <div class="icon-box">
+                        <i class="flaticon-video-camera"></i>
+                    </div>
+                    <div class="about-desc">
+                        <h4>資格審核</h4>
+                        <p>所有教師皆來自台清交成及醫牙中醫等頂大學士、碩士、全職教師</p>
+                    </div>
+                </div>
+
+                <div class="about-text-block">
+                    <div class="icon-box">
+                        <i class="flaticon-flag"></i>
+                    </div>
+                    <div class="about-desc">
+                        <h4>嚴格面試</h4>
+                        <p>
+                            除了擁有清晰的觀念及超強的教學力，我們亦要求教師懂得換位思考，理解學生的問題所在
+                        </p>
+                    </div>
+                </div>
+                <div class="about-text-block">
+                    <div class="icon-box border-none">
+                        <i class="flaticon-video-camera"></i>
+                    </div>
+                    <div class="about-desc">
+                        <h4>完整師培</h4>
+                        <p>
+                            嚴格要求教師的教材製作能力與教師的口才能力
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6">
+                <div class="about-img">
+                    <img src="/assets/images/bg/about-image.jpg" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Section End -->
+<!-- Testimonial section start -->
+<section class="testimonial section-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-9">
+                <div class="section-heading center-heading">
+                    <span class="subheading">一封給學子的信</span>
+                    <h3>給面對考試、升學壓力下徬徨的你</h3>
+                    <p>我們來自台清交，都曾面對相同的問題－－升學、考試，在過去迷惘而不知所措的時光中，為了考取目標不惜付出重考為代價，若當時有人提著一盞明燈替我們引路該有多好。於是我們創立了文宏教育，讓我們做你的專屬燈塔、不再因為迷失方向而浪費青春。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-120">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="testimonials-slides owl-carousel owl-theme">
+                    <div class="testimonial-item">
+                        <i class="fa fa-quote-right"></i>
+                        <div class="client-info">
+                            <img src="/assets/images/clients/test-1.jpg" alt="" class="img-fluid">
+                            <div class="testionial-author">Jessica Smith - Amazon co.</div>
+                        </div>
+                        <div class="testimonial-info-title">
+                            <h4>One of the easiest online accounting systems we've tried.</h4>
+                        </div>
+
+                        <div class="testimonial-info-desc">
+                            People who build their own home tend to be very courageous. These people are curious about life.
+                        </div>
+                    </div>
+
+
+                    <div class="testimonial-item">
+                        <i class="fa fa-quote-right"></i>
+                        <div class="client-info">
+                            <img src="/assets/images/clients/test-2.jpg" alt="" class="img-fluid">
+                            <div class="testionial-author">Jessica Smith - Amazon co.</div>
+                        </div>
+                        <div class="testimonial-info-title">
+                            <h4>One of the easiest online accounting systems we've tried.</h4>
+                        </div>
+
+                        <div class="testimonial-info-desc">
+                            People who build their own home tend to be very courageous. These people are curious about life.
+                        </div>
+                    </div>
+
+
+                    <div class="testimonial-item">
+                        <i class="fa fa-quote-right"></i>
+                        <div class="client-info">
+                            <img src="/assets/images/clients/test-3.jpg" alt="" class="img-fluid">
+                            <div class="testionial-author">Jessica Smith - Amazon co.</div>
+                        </div>
+                        <div class="testimonial-info-title">
+                            <h4>One of the easiest online accounting systems we've tried.</h4>
+                        </div>
+
+                        <div class="testimonial-info-desc">
+                            They're thinking about what it means to live in a house, rather than just buying a commodity and making it work.
+                        </div>
+                    </div>
+
+                    <div class="testimonial-item">
+                        <i class="fa fa-quote-right"></i>
+                        <div class="client-info">
+                            <img src="/assets/images/clients/test-1.jpg" alt="" class="img-fluid">
+                            <div class="testionial-author">Jessica Smith - Amazon co.</div>
+                        </div>
+
+                        <div class="testimonial-info-title">
+                            <h4>One of the easiest online accounting systems we've tried.</h4>
+                        </div>
+
+                        <div class="testimonial-info-desc">
+                            People who build their own home tend to be very courageous. These people are curious about life.
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="margin: 100px"></div>
+<!-- Testimonial section End -->
+<!-- Blog Section Start -->
+<!--<section class="blog-section section-padding">-->
+<!--    <div class="container">-->
+<!--        <div class="row align-items-center justify-content-center">-->
+<!--            <div class="col-lg-7">-->
+<!--                <div class="section-heading center-heading">-->
+<!--                    <span class="subheading">Blog News</span>-->
+<!--                    <h3>Latest From The Blog</h3>-->
+<!--                    <p>The ultimate planning solution for-->
+<!--                        busy women who want to reach their personal goals</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--            <div class="col-lg-4 col-xl-4 col-md-6 ">-->
+<!--                <article class="blog-post-item">-->
+<!--                    <div class="post-thumb">-->
+<!--                        <img src="/assets/images/blog/blog1.jpg" alt="" class="img-fluid">-->
+<!--                    </div>-->
+<!--                    <div class="post-item mt-4">-->
+<!--                        <div class="post-meta">-->
+<!--                            <span class="post-author">Written by <a href="#" >Admin</a></span>-->
+<!--                            <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>May 9, 2021</span>-->
+<!--                        </div>-->
+<!--                        <h4 class="post-title"><a href="blog-single.html">How to become a best sale marketer in a month!</a></h4>-->
+<!--                    </div>-->
+<!--                </article>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-xl-4 col-md-6">-->
+<!--                <article class="blog-post-item">-->
+<!--                    <div class="post-thumb">-->
+<!--                        <img src="/assets/images/blog/blog2.jpg" alt="" class="img-fluid">-->
+<!--                    </div>-->
+<!--                    <div class="post-item mt-4">-->
+<!--                        <div class="post-meta">-->
+<!--                            <span class="post-author">Written by <a href="#" >Admin</a></span>-->
+<!--                            <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>May 9, 2021</span>-->
+<!--                        </div>-->
+<!--                        <h4 class="post-title"><a href="blog-single.html">How to become a best sale marketer in a month!</a></h4>-->
+<!--                    </div>-->
+<!--                </article>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-4 col-xl-4 col-md-6">-->
+<!--                <article class="blog-post-item">-->
+<!--                    <div class="post-thumb">-->
+<!--                        <img src="/assets/images/blog/blog3.jpg" alt="" class="img-fluid">-->
+<!--                    </div>-->
+<!--                    <div class="post-item mt-4">-->
+<!--                        <div class="post-meta">-->
+<!--                            <span class="post-author">Written by <a href="#" >Admin</a></span>-->
+<!--                            <span class="post-date"><i class="fa fa-calendar-alt mr-2"></i>May 9, 2021</span>-->
+<!--                        </div>-->
+<!--                        <h4 class="post-title"><a href="blog-single.html">How to become a best sale marketer in a month!</a></h4>-->
+
+<!--                    </div>-->
+<!--                </article>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section class="counter-section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10">
+                <div class="section-heading">
+                    <span class="subheading">激發你的潛能</span>
+                    <h3>多位來自不同科系背景的教師，配合你的學習狀況， 客製化給你最好的學習環境</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-lg-3 col-md-6">
+                <div class="counter-item phone-style">
+                    <h6>師資人數</h6>
+                    <div class="count">
+                        <span class="counter">30+</span>位
+                    </div>
+                    <p>電資、資工、醫學等科系背景老師，供你挑選</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="counter-item phone-style">
+                    <h6>所有課程</h6>
+                    <div class="count">
+                        <span class="counter">30+</span>門
+                    </div>
+                    <p>選定主科後，進一步告知我們的老師你的需求，以利學習</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="counter-item phone-style">
+                    <h6>報名人數</h6>
+                    <div class="count">
+                        <span class="counter">99+</span>人
+                    </div>
+                    <p>擁有豐富教學經驗，不放棄任何一位學生</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="counter-item phone-style">
+                    <h6>滿意度</h6>
+                    <div class="count">
+                        <span class="counter">99.9</span>%
+                    </div>
+                    <p>一個不會讓你失望的團隊</p>
+                </div>
+            </div>
+       </div>
+    </div>
+</section>
+
+
+<!-- Blog Section End -->
+<style>
+    .subscribe-form a {
+        position: absolute;
+        content: "";
+        right: 10px;
+        top: 132px;
+    }
+    .btn:hover{
+        color: #f7f7f7;
+    }
+</style>
+<section class="subscribe section-padding pt-0" id="contact">
+    <div class="container">
+        <div class="row align-items-center form-inner">
+            <div class="col-lg-6 col-xl-6">
+                <div class="section-heading mb-0">
+                    <span class="subheading">聯絡我們</span>
+                    <form action="#" class="subscribe-form">
+                        <input style="margin-top: 15px ;height: 50px" type="text" placeholder="電子郵件信箱" class="form-control">
+                    </form>
+                    <form action="#" class="subscribe-form">
+                        <input style="margin-top: 15px ;height: 50px" type="text" placeholder="電話號碼" class="form-control">
+                    </form>
+                    <form action="#" class="subscribe-form">
+                        <input style="margin-top: 15px ;height: 50px" type="text" placeholder="姓名" class="form-control">
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-6">
+                <form action="#" class="subscribe-form">
+                    <textarea style="margin-top: 38px;height: 180px" type="text" placeholder="內容" class="form-control"></textarea>
+                    <a href="#" class="btn btn-main">提交</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+<!-- Footer section start -->
+{% block footer %}
+<style>
+    .footer {
+        background: #EBF4F8;
+        padding: 60px 0px 0px;
+        position: relative;
+    }
+    .footer-btm {
+        margin-top: 40px;
+        padding: 20px 0px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+<section class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 mr-auto col-sm-6 col-md-6">
+				<div class="widget footer-widget mb-5 mb-lg-0">
+					<div class="footer-logo">
+						<img  src="/img/logo_4.png" alt="EduHash" class="img-fluid">
+					</div>
+					<p class="mt-3">
+                        文宏教育，新時代全線上化教學，不論身在何處，都讓您享受最完善的教育資源
+                    </p>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-sm-6 col-md-6 col-xl-2">
+				<div class="footer-widget mb-5 mb-lg-0">
+					<h5 class="widget-title">專員電話</h5>
+					<ul class="list-unstyled footer-links">
+						<li><a>0905-570-446</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6 col-md-6 col-xl-2">
+				<div class="footer-widget mb-5 mb-lg-0">
+					<h5 class="widget-title">電子郵件信箱</h5>
+					<ul class="list-unstyled footer-links">
+						<li><a>wenhongli0510@gmail.com</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="footer-btm">
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-xl-6 col-lg-6">
+					<div class="copyright text-lg-left text-center">
+						<p>Copyright 文宏教育 All rights reserved. Create by 李紹宏</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Footer section End -->
+<div class="fixed-btm-top">
+	<a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
+</div>
+{% endblock %}
+
+
+
+
+
+
+    <!--
+    Essential Scripts
+    =====================================-->
+
+    <!-- Main jQuery -->
+    <script src="/assets/vendors/jquery/jquery.js"></script>
+    <!-- Bootstrap 4.5 -->
+    <script src="/assets/vendors/bootstrap/bootstrap.js"></script>
+    <!-- Counterup -->
+    <script src="/assets/vendors/counterup/waypoint.js"></script>
+    <script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="/assets/vendors/jquery.isotope.js"></script>
+    <script src="/assets/vendors/owl/owl.carousel.min.js"></script>
+    <script src="/assets/vendors/google-map/map.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script>
+        function submit_() {
+            axios.post('/',{
+                'email':$('#email').val(),
+                'name':$('#name').val(),
+                'text':$('#text').val(),
+                'phone':$("#phone").val()
+            }).then(res=>{
+                if(res.data.errno == 0){
+                    swal({
+                        'title':'傳送成功',
+                        'text':'',
+                        'button':false,
+                        'icon':'success',
+                        'timer':1500
+                    })
+                }else{
+                    swal({
+                        'title':'傳送失敗',
+                        'text':'',
+                        'button':false,
+                        'icon':'error',
+                        'timer':1500
+                    })
+                }
+            })
+        }
+    </script>
+
+
+  </body>
+  </html>

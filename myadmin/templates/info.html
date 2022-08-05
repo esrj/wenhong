@@ -1,0 +1,227 @@
+{% extends 'index.html' %}
+
+
+{% block nav %}
+<style>
+
+    .site-navigation {
+        padding: 0px;
+        border-bottom: 1px solid #EBF4F8;
+    }
+    .navbar-brand img {
+        width: 236px;
+        height: 45px;
+}
+</style>
+<header>
+
+    <div class="site-navigation main_menu menu-transparent" id="mainmenu-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid container-padding">
+                <a class="navbar-brand" href="index.html">
+                    <img src="/img/logo_4.png" alt="Eduhash" class="img-fluid">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav mx-auto"></ul>
+                    <div class="d-flex align-items-center">
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/" role="button" >
+                                 報名狀況
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/create/" role="button" >
+                                 創建學員
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/info/" role="button" >
+                                 新增課程
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/upload/" role="button" >
+                                 上傳教材
+                            </a>
+                            <a style = "color:#6C6C6C" onclick="logout_()" class="nav-link">
+                                登出
+                            </a>
+                    </div>
+                </div> <!-- / .navbar-collapse -->
+            </div> <!-- / .container -->
+        </nav>
+    </div>
+</header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script>
+        function logout_(){
+            swal({
+                'title':'確定要登出嗎',
+                'text':'',
+                'buttons':['取消','確認'],
+                'icon':'info',
+            }).then(confirm=>{
+                if(confirm) {
+                    axios.post('/myadmin/logout/').then(()=>{
+                        swal({
+                            'title':'已登出',
+                            'text':'正在導向主頁面',
+                            'buttons':false,
+                            'icon':'success',
+                            'timer':1500,
+                        })
+                        setTimeout(()=>{
+                            location.href = '/'
+                        },1500)
+                    })
+                }
+            })
+        }
+</script>
+{% endblock %}
+
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+    .flex-container {
+        justify-content:  space-between ;
+    }
+    .contain{
+        display: float;
+        margin-left:auto;
+        margin-right:auto
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #f5f5f5;border-color: #f5f5f5;
+    }
+    .input-text, input[type=email], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=url], textarea {
+        padding: 0.53em;
+        height: 38px;
+        padding-left: 20px;
+        background: #F5F5F5;
+        border: 1px solid #F5F5F5;
+    }
+</style>
+
+<div style="margin : 100px"></div>
+<div class="contain col-md-10">
+    <div class="col-md-3 flex-container ">
+        <div >
+            <legend>所有學員</legend>
+            <div style="float: left ;margin-right: 50px;width: 100%" class="card">
+                <div class="card-header">
+                    <div class="card-title">名單</div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr style="cursor: auto;">
+                            <th scope="col">#編號</th>
+                            <th scope="col">學員姓名</th>
+                        </tr>
+                        </thead>
+                        <tbody id="student_"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class ="col-md-12 flex-container " >
+        <form>
+            <fieldset>
+                <legend>新增課程</legend>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">課程封面相片(非必填)</label>
+                    <input type="file" class="form-control" id="picture" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">課程名稱</label>
+                    <input  class="form-control" id="course_name" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">meeting連結(ex:wnh-naxm-drt)</label>
+                    <input  class="form-control" id="meet" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="SelectTeacher" class="form-label">選擇教師</label>
+                    <select id="SelectTeacher" class="form-select">
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="SelectStudent" class="form-label">選擇學員</label>
+                    <div id="SelectStudent" ></div>
+                </div>
+                <a style="color:#212529" onclick="submit__()" class="btn btn-primary">送出</a>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script>
+    axios.post("/myadmin/info/").then(res=>{
+        console.log('tew')
+        if(res.data.errno == 0){
+            users = res.data.data
+            users.forEach(item=>{
+                $('#student_').append(`
+                    <tr id="student_${item.id}">
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                    </tr>
+                `)
+                $('#SelectStudent').append(`
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name = "check" value="${item.name}" id="flexCheckChecked" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        ${item.name}
+                      </label>
+                    </div>
+                `)
+            })
+
+            teachers = res.data.teacher
+            teachers.forEach(item=>{
+                $('#SelectTeacher').append(`
+                    <option value="${item.name}">${item.name}</option>
+                `)
+            })
+        }
+    })
+    function submit__(){
+        let checkArr=[];
+        $("input[name='check']:checked").each(function(){
+            checkArr.push($(this).val());
+        })
+        let formdata = new FormData();
+        try{
+            const file =  $('#picture')[0].files[0].name
+            formdata.append('file',$('#picture')[0].files[0]);
+        }catch{}
+        console.log($('meet').val())
+        formdata.append('meet',$('#meet').val())
+        formdata.append('student',checkArr)
+        formdata.append('teacher',$('#SelectTeacher').val())
+        formdata.append('course_name',$('#course_name').val())
+        console.log(formdata)
+        axios({
+            url:'/myadmin/post/',
+            method:'post',
+            data:formdata,
+            headers:{'Content-Type': 'multipart/form-data;charset=UTF-8'}
+        }).then(res=>{
+            if(res.data.errno == 0){
+                swal('成功新增','','success')
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

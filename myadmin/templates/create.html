@@ -1,0 +1,204 @@
+{% extends 'index.html' %}
+
+
+{% block nav %}
+<style>
+    .site-navigation {
+        padding: 0px;
+        border-bottom: 1px solid #EBF4F8;
+    }
+    .navbar-brand img {
+        width: 236px;
+        height: 45px;
+}
+</style>
+<header>
+
+    <!-- Main Menu Start -->
+
+    <div class="site-navigation main_menu menu-transparent" id="mainmenu-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid container-padding">
+                <a class="navbar-brand" href="index.html">
+                    <img src="/img/logo_4.png" alt="Eduhash" class="img-fluid">
+                </a>
+
+                <!-- Toggler -->
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarMenu">
+
+                    <ul class="navbar-nav mx-auto">
+
+
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/" role="button" >
+                                 報名狀況
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/create/" role="button" >
+                                 創建學員
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/info/" role="button" >
+                                 新增課程
+                            </a>
+                            <a style = "color:#6C6C6C" class="nav-link" href="/myadmin/upload/" role="button" >
+                                 上傳教材
+                            </a>
+
+                            <a style = "color:#6C6C6C" onclick="logout_()" class="nav-link">
+                                登出
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script>
+        function logout_(){
+            swal({
+                'title':'確定要登出嗎',
+                'text':'',
+                'buttons':['取消','確認'],
+                'icon':'info',
+            }).then(confirm=>{
+                if(confirm) {
+                    axios.post('/myadmin/logout/').then(()=>{
+                        swal({
+                            'title':'已登出',
+                            'text':'正在導向主頁面',
+                            'buttons':false,
+                            'icon':'success',
+                            'timer':1500,
+                        })
+                        setTimeout(()=>{
+                            location.href = '/'
+                        },1500)
+                    })
+                }
+            })
+        }
+</script>
+{% endblock %}
+
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+    .flex-container {
+        justify-content:  space-between ;
+    }
+    .contain{
+        display: float;
+        margin-left:auto;
+        margin-right:auto
+    }
+    .input-text, input[type=email], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=url], textarea {
+        padding: 0.53em;
+        height: 38px;
+        padding-left: 20px;
+        background: #F5F5F5;
+        border: 1px solid #F5F5F5;
+    }
+</style>
+
+<div style="margin : 100px"></div>
+<div class="contain col-md-8">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">使用者名稱</label>
+            <input  class="form-control" id="username">
+          </div>
+          <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">密碼</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">密碼</label>
+            <input type="password" class="form-control" id="password2">
+          </div>
+          <div class="col-md-6">
+            <label for="inputCity" class="form-label">email</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+          <div class="col-md-6">
+            <label for="inputState" class="form-label">身份</label>
+            <select id="state" class="form-select">
+          <option selected value=1>學員</option>
+          <option selected value=3>教師</option>
+        </select>
+      </div>
+  <div class="col-12">
+    <a style="border-color:#f5f5f5;background-color: #f5f5f5;" onclick="submit_register()"  class="btn btn-primary">創建</a>
+  </div>
+</form>
+    </div>
+</div>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script>
+    axios.post("/myadmin/info/").then(res=>{
+        if(res.data.errno == 0){
+            users = res.data.data
+            users.forEach(item=>{
+                $('#student_').append(`
+                    <tr id="student_${item.id}">
+                        <td>${item.date}</td>
+                        <td>${item.name}</td>
+                    </tr>
+                `)
+            })
+        }
+    })
+    function submit_register(){
+        axios.post('/myadmin/create/',{
+            'username':$('#username').val(),
+            'password':$('#password').val(),
+            'password2':$('#password2').val(),
+            'email':$('#email').val(),
+            'permission':$('#state').val()
+        }).then(res=>{
+            if(res.data.errno == 2){
+                swal({
+                     'title':'註冊失敗',
+                     'text':'密碼不相容',
+                     'button':['確認'],
+                     'icon':'error'
+                })
+            }
+            if(res.data.errno == 1){
+                swal({
+                     'title':'系統出錯',
+                     'text':'請重新登入或稍後再試',
+                     'button':['確認'],
+                     'icon':'error'
+                })
+            }
+            if(res.data.errno == 0){
+                swal({
+                     'title':'註冊成功',
+                     'text':'  ',
+                     'button':['確認'],
+                     'icon':'success'
+                })
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
