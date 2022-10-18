@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'myadmin',
-    'learning'
+    'learning',
 ]
 
 MIDDLEWARE = [
@@ -77,11 +77,18 @@ WSGI_APPLICATION = 'wenhong.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
 }
 
 
@@ -120,6 +127,7 @@ STATIC_URL = '/assets/'
 STATICFILES_DIRS = (
     [BASE_DIR / 'assets']
 )
+STATIC_ROOT = BASE_DIR / '/assets/'
 
 MEDIA_URL='/img/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'img')
@@ -129,6 +137,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'img')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_ROOT = BASE_DIR / '/assets/'
+
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

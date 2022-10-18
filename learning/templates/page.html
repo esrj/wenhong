@@ -9,23 +9,20 @@
     .navbar-brand img {
         width: 236px;
         height: 45px;
-}
+    }
 </style>
 <header>
-
-
     <div class="site-navigation main_menu menu-transparent" id="mainmenu-area">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid container-padding">
                 <a class="navbar-brand" href="index.html">
                     <img src="/img/logo_4.png" alt="Eduhash" class="img-fluid">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <button style="background:#000000" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav mx-auto"></ul>
-
                     <div class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
                          <a style="font-size: 1rem;color:#001327" class="btn btn-main btn-sm" href="/learning/" role="button" >我的課程</a>
@@ -70,6 +67,18 @@
 
 {% block content %}
 <style>
+    .author-img img {
+        border-radius: 100%;
+        border: 0px solid #fff;
+        margin-top: -20px;
+        width: 70px;
+    }
+    .author-img{
+        border-radius: 100%;
+        border: 0px solid #fff;
+        margin: 0px;
+        width: 70px;
+    }
     .blog-sidebar .widget.widget-search .search-form [type=submit] {
         color: #fff;
         background: #20ad96;
@@ -83,13 +92,11 @@
         margin-top :0px;
         margin-bottom:40px;
         padding: 40px;
+        padding-bottom: 20px;
         border: 1px dashed #ddd;
         position: relative;
         border-radius: 5px;
-    }
-    .author .author-img img {
-        border-radius: 100%;
-        border: 0px solid #fff;
+/*         height */
     }
     .recent-posts li {
         clear: both;
@@ -97,46 +104,44 @@
         border-bottom: 1px solid #eee;
         padding-bottom: 40px;
     }
+    .img-fluid {
+        width: 100%;
+        max-height: 350px;
+        object-fit: cover;
+    }
 </style>
-
 <section class="page-header">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 col-xl-8">
-        <div class="title-block">
-          <h1>歡迎回來 {{request.user.username}} !</h1>
-          <ul class="list-inline mb-0">
-
-            <li class="list-inline-item">
-                文宏教育 正在改寫你的人生篇章
-            </li>
-          </ul>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>歡迎回來 {{request.user.username}} !</h1>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            文宏教育 正在改寫你的人生篇章
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
-
-
-
-
 
 <div class="page-wrapper">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-xl-8">
-                <div class="author">
-                    <div class="author-img">
-                        <img src="/assets/images/blog/author.jpg" alt="" class="img-fluid">
+                <div style="display:flex;height:114px" class="author">
+                    <div style="margin: 0" class="author-img">
+                        <img src="/img/user.png" alt="" class="img-fluid">
                     </div>
                     <div id="teacher" class="author-info">
 
                     </div>
                 </div>
                 <div style="padding:25px" class="author">
-        		<div  class="post-single" id = "mycourse">
-
-                </div>
+                    <div  class="post-single" id = "mycourse">
+                    </div>
                 </div>
       		</div>
       		<div class="col-lg-4 col-xl-4">
@@ -157,13 +162,22 @@
 		</div>
 	</div>
 </div>
-
-
-
-    <script src="/assets/js/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script src="/assets/js/script.js"></script>
+<script src="/assets/vendors/jquery/jquery.js"></script>
+<script src="/assets/vendors/bootstrap/bootstrap.js"></script>
+<script src="/assets/vendors/counterup/waypoint.js"></script>
+<script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
+<script src="/assets/vendors/jquery.isotope.js"></script>
+<script src="/assets/vendors/owl/owl.carousel.min.js"></script>
+<script src="/assets/vendors/google-map/map.js"></script>
+<script src="/assets/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
         <script>
             axios.post(`/learning/`).then((res)=>{
+                if (res.data.errno == 2){
+
+                }
+
                 courses = res.data.courses
                 courses.forEach(item=>{
                     $('#course_list').append(`
@@ -179,7 +193,6 @@
                     `)
                 })
                 $('#course_list').append(`<div></div>`)
-
                 course = res.data.courses[0]
                 $('#mycourse').append(`
                         <div class="post-thumb">
@@ -198,10 +211,9 @@
                         </div>
                 `)
                 let document = res.data.document
-
                 document.forEach(item=>{
                         $('#course_document').append(`
-                            <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.title}/">
+                            <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.path}/">
                                 <i style="margin: 8px;margin-left: 0px;color: #3f3a64" class="fa fa-file"></i>${item.title}
                             </a><br>
                         `)
@@ -234,7 +246,7 @@
                     let document = res.data.document
                     document.forEach(item=>{
                         $('#course_document').append(`
-                            <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.title}/">
+                            <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.path}/">
                                 <i style="margin: 8px;margin-left: 0px;color: #3f3a64" class="fa fa-file"></i>${item.title}
                             </a><br>
                         `)

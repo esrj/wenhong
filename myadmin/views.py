@@ -19,10 +19,10 @@ def adminpage(request):
         else:
             return HttpResponse('權限不足')
     if request.method == 'POST':
-        contacts = Contact.objects.order_by('date').all().values('id','date','name','text','phone','is_contact','is_sign')
+        contacts = Contact.objects.order_by('-date').all().values('id','date','email','name','text','phone','is_contact','is_sign')
         datas = list(contacts)
         for data in datas:
-            data['date'] = data['date'].strftime('%m/%d %H:%M')
+            data['date'] = data['date'].strftime('%m/%d')
         return JsonResponse({'errno':0,'data':datas})
 
 @csrf_exempt
@@ -192,6 +192,7 @@ def upload(request):
         return JsonResponse({'errno':0,'data':courses})
 
 
+from django.core.files.base import ContentFile
 @login_required(login_url='/myadmin/login/')
 @csrf_exempt
 def document(request):
@@ -199,8 +200,13 @@ def document(request):
         file = request.FILES.get('file')
         id = request.POST.get('id')
         course = Course.objects.filter(id=id).first()
-        title = file.name
-        document = Document.objects.create(title = title,upload = file, course = course)
+        document = Document.objects.create(title = file.name, course = course)
+        full_filename = os.path.join('img','file', str(file.name.encode('utf-8')).replace("\\","").replace('\'',''))
+        fout = open(full_filename, 'wb+')
+        file_content = ContentFile(request.FILES.get('file').read())
+        for chunk in file_content.chunks():
+            fout.write(chunk)
+        fout.close()
         document.save()
         return JsonResponse({'errno':0,'id':document.id})
 
@@ -208,9 +214,16 @@ def document(request):
 @csrf_exempt
 def load_document(request,id):
     course = Course.objects.filter(id = id).first()
-    documents = course.document.order_by('-date').all().values('id','title')
+    documents = course.document.order_by('-date').all()
     documents = list(documents)
-    return JsonResponse({'errno':0,'documents':documents})
+    data = []
+    for document in documents:
+        ele = {}
+        ele['title'] = document.title
+        ele['path'] = str(document.title.encode('utf-8')).replace("\\","").replace('\'','')
+        ele['id'] = document.id
+        data.append(ele)
+    return JsonResponse({'errno':0,'documents':data})
 
 
 @login_required(login_url='/myadmin/login/')

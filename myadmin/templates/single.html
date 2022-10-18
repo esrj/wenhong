@@ -172,13 +172,37 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
+
+
+
     function delete_(id){
-        axios.post(`/myadmin/delete/${id}/`).then(res=>{
-            if(res.data.errno == 0){
-                location.href = '/myadmin/'
+        swal({
+            'icon':'info',
+            'buttons':['取消','刪除'],
+            'title': '確定要刪除',
+            'text':'一但刪除將無法復原'
+        }).then((confirm)=>{
+            if(confirm){
+                axios.post(`/myadmin/delete/${id}/`).then(res=>{
+                    if(res.data.errno == 0){
+                        swal({
+                            'icon':'success',
+                            'buttons':false,
+                            'title': '已成功刪除',
+                            'text':'\n',
+                            'timer':1500
+                        })
+                        setTimeout(()=>{
+                            location.href = '/myadmin/'
+                        },1500)
+                    }
+                })
             }
         })
     }
+
+
+
     function info(){
     }
 

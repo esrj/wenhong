@@ -151,7 +151,7 @@
                 <form id="form" enctype="multipart/form-data">
                     <input style="margin-top: 10px;" id="file" name="file"  class="form-control" type="file">
                     <div id="course_index"></div>
-                    <button style="margin-left: 0px;margin-bottom: 40px" type="button" onclick="submit__()" class="btn btn-light">提交</button>
+                    <button style="margin-left: 0px;margin-bottom: 40px" type="button" onclick="upload__()" class="btn btn-light">提交</button>
                 </form>
                 <div id ="temp"></div>
                 <div id = "course">
@@ -162,9 +162,17 @@
     </div>
 </div>
     <script src="/assets/vendors/jquery/jquery.js"></script>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <!-- Bootstrap 4.5 -->
+    <script src="/assets/vendors/bootstrap/bootstrap.js"></script>
+    <!-- Counterup -->
+    <script src="/assets/vendors/counterup/waypoint.js"></script>
+    <script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="/assets/vendors/jquery.isotope.js"></script>
+    <script src="/assets/vendors/owl/owl.carousel.min.js"></script>
+    <script src="/assets/vendors/google-map/map.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
 
 
@@ -178,7 +186,7 @@
         })
     })
 
-    function submit__(){
+    function upload__(){
         let formdata = new FormData();
         const file =  $('#form')[0][0].files[0].name
         const id = $('#all_course')[0]['value']

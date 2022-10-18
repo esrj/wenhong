@@ -25,7 +25,7 @@
 
                 <!-- Toggler -->
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <button style="background:#000000" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fa fa-bars"></span>
                 </button>
 
@@ -116,6 +116,15 @@
             float: none;
         }
     }
+    @media (max-width: 776px) {
+        .card_{
+            width: 95%;
+            float: none;
+        }
+        .hide{
+            display: none
+        }
+    }
 
 </style>
 <div class="content" >
@@ -132,11 +141,11 @@
 							<tr style="cursor: auto;">
 								<th scope="col">聯絡日期</th>
 								<th scope="col">姓名</th>
-								<th scope="col">電子郵件</th>
-								<th scope="col">聯絡電話</th>
+								<th class= "hide" scope="col">電子郵件</th>
+								<th class= "hide" scope="col">聯絡電話</th>
 								<th scope="col">已聯絡</th>
                                 <th scope="col">已報名</th>
-								<th></th>
+								<th class= "hide" ></th>
 							</tr>
 							</thead>
 							<tbody id="contact_"></tbody>
@@ -155,110 +164,113 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
-	axios.post('/myadmin/').then(res=>{
-		if(res.data.errno == 0){
-			const datas = res.data.data
-			datas.forEach(item=>{
-				if(item.is_contact == false && item.is_sign == false){
-					$('#contact_').append(`
-						<tr id="contact_${item.id}">
-							<td  onclick="single(${item.id})" >${item.date}</td>
-							<td  onclick="single(${item.id})" >${item.name}</td>
-							<td  onclick="single(${item.id})" >${item.email}</td>
-							<td  onclick="single(${item.id})" >${item.phone}</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "contact_(${item.id})" type="checkbox" class="form-check-input" >
-									<label class="form-check-label" for="exampleCheck1">已聯絡</label>
-								</div>
-							</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "sign_(${item.id})" type="checkbox" class="form-check-input" >
-									<label class="form-check-label" for="exampleCheck1">已報名</label>
-								</div>
-							</td>
-							<td >
-								<a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
-							</td>
-						</tr>
-					`)
-				}if(item.is_contact == true  && item.is_sign == false){
-					$('#contact_').append(`
-						<tr id="contact_${item.id}">
-							<td  onclick="single(${item.id})" >${item.date}</td>
-							<td  onclick="single(${item.id})" >${item.name}</td>
-							<td  onclick="single(${item.id})" >${item.email}</td>
-							<td  onclick="single(${item.id})" >${item.phone}</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "uncontact_(${item.id})" type="checkbox" class="form-check-input" checked="checked">
-									<label class="form-check-label" for="exampleCheck1">已聯絡</label>
-								</div>
-							</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "sign_(${item.id})" type="checkbox" class="form-check-input" >
-									<label class="form-check-label" for="exampleCheck1">已報名</label>
-								</div>
-							</td>
-							<td >
-								<a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
-							</td>
-						</tr>
-					`)
-				}if(item.is_contact == false  && item.is_sign == true){
-					$('#contact_').append(`
-						<tr id="contact_${item.id}">
-							<td  onclick="single(${item.id})" >${item.date}</td>
-							<td  onclick="single(${item.id})" >${item.name}</td>
-							<td  onclick="single(${item.id})" >${item.email}</td>
-							<td  onclick="single(${item.id})" >${item.phone}</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "contact_(${item.id})" type="checkbox" class="form-check-input" >
-									<label class="form-check-label" for="exampleCheck1">已聯絡</label>
-								</div>
-							</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "unsign_(${item.id})" type="checkbox" class="form-check-input"  checked="checked">
-									<label class="form-check-label" for="exampleCheck1">已報名</label>
-								</div>
-							</td>
-							<td >
-								<a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
-							</td>
-						</tr>
-					`)
-				}if(item.is_contact == true  && item.is_sign == true){
-					$('#contact_').append(`
-						<tr id="contact_${item.id}">
-							<td  onclick="single(${item.id})" >${item.date}</td>
-							<td  onclick="single(${item.id})" >${item.name}</td>
-							<td  onclick="single(${item.id})" >${item.email}</td>
-							<td  onclick="single(${item.id})" >${item.phone}</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "uncontact_(${item.id})" type="checkbox" class="form-check-input" checked="checked">
-									<label class="form-check-label" for="exampleCheck1">已聯絡</label>
-								</div>
-							</td>
-							<td>
-								<div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
-									<input onclick= "unsign_(${item.id})" type="checkbox" class="form-check-input"  checked="checked">
-									<label class="form-check-label" for="exampleCheck1">已報名</label>
-								</div>
-							</td>
-							<td >
-								<a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
-							</td>
-						</tr>
-					`)
-				}
-			})
-		}
-	})
+    function load(){
+        axios.post('/myadmin/').then(res=>{
+            if(res.data.errno == 0){
+                const datas = res.data.data
+                datas.forEach(item=>{
+                    if(item.is_contact == false && item.is_sign == false){
+                        $('#contact_').append(`
+                            <tr id="contact_${item.id}">
+                                <td  onclick="single(${item.id})" >${item.date}</td>
+                                <td  onclick="single(${item.id})" >${item.name}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.email}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.phone}</td>
+                                <td >
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "contact_(${item.id})" type="checkbox" class="form-check-input" >
+                                        <label class="form-check-label" for="exampleCheck1">已聯絡</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "sign_(${item.id})" type="checkbox" class="form-check-input" >
+                                        <label class="form-check-label" for="exampleCheck1">已報名</label>
+                                    </div>
+                                </td>
+                                <td class= "hide">
+                                    <a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        `)
+                    }if(item.is_contact == true  && item.is_sign == false){
+                        $('#contact_').append(`
+                            <tr id="contact_${item.id}">
+                                <td  onclick="single(${item.id})" >${item.date}</td>
+                                <td  onclick="single(${item.id})" >${item.name}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.email}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.phone}</td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "uncontact_(${item.id})" type="checkbox" class="form-check-input" checked="checked">
+                                        <label class="form-check-label" for="exampleCheck1">已聯絡</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "sign_(${item.id})" type="checkbox" class="form-check-input" >
+                                        <label class="form-check-label" for="exampleCheck1">已報名</label>
+                                    </div>
+                                </td>
+                                <td class= "hide">
+                                    <a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        `)
+                    }if(item.is_contact == false  && item.is_sign == true){
+                        $('#contact_').append(`
+                            <tr id="contact_${item.id}">
+                                <td  onclick="single(${item.id})" >${item.date}</td>
+                                <td  onclick="single(${item.id})" >${item.name}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.email}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.phone}</td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "contact_(${item.id})" type="checkbox" class="form-check-input" >
+                                        <label class="form-check-label" for="exampleCheck1">已聯絡</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "unsign_(${item.id})" type="checkbox" class="form-check-input"  checked="checked">
+                                        <label class="form-check-label" for="exampleCheck1">已報名</label>
+                                    </div>
+                                </td>
+                                <td class= "hide">
+                                    <a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        `)
+                    }if(item.is_contact == true  && item.is_sign == true){
+                        $('#contact_').append(`
+                            <tr id="contact_${item.id}">
+                                <td  onclick="single(${item.id})" >${item.date}</td>
+                                <td  onclick="single(${item.id})" >${item.name}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.email}</td>
+                                <td class="hide" onclick="single(${item.id})" >${item.phone}</td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "uncontact_(${item.id})" type="checkbox" class="form-check-input" checked="checked">
+                                        <label class="form-check-label" for="exampleCheck1">已聯絡</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="margin-bottom:3px;margin-top: 3px " class=" form-check">
+                                        <input onclick= "unsign_(${item.id})" type="checkbox" class="form-check-input"  checked="checked">
+                                        <label class="form-check-label" for="exampleCheck1">已報名</label>
+                                    </div>
+                                </td>
+                                <td class= "hide">
+                                    <a onclick="_delete_(${item.id})" ><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        `)
+                    }
+                })
+            }
+        })
+	}
+	load()
 	function logout_(){
 		swal({
 			'title':'確定要登出嗎',
@@ -299,6 +311,25 @@
     }
     function info(){
         location.href = `/myadmin/info/`
+    }
+    function _delete_(id){
+        swal({
+            'icon':'info',
+            'title':'確定要刪除嗎？',
+            'buttons':['確定','刪除']
+        }).then(confirm=>{
+            if(confirm){
+                axios.post(`/myadmin/delete/${id}/`).then(()=>{
+                    swal({
+                        icon:'success',
+                        timer: 1500,
+                        title: '已刪除'
+                    })
+                    $('#contact_').empty()
+                    load()
+                })
+            }
+        })
     }
 
 </script>

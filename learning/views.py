@@ -20,6 +20,11 @@ def login(request):
             user = authenticate(username= username,password = password)
             if user is not None:
                 if user.is_active:
+                    try :
+                        profile = Profile.objects.filter(user = user).first()
+                    except:
+                        auth.logout(request)
+                        return render(request,'login_.html')
                     auth.login(request,user)
                     return JsonResponse({'errno':0})
             else:
@@ -37,7 +42,10 @@ def page(request):
         return render(request,'page.html')
     if request.method == 'POST':
         user = request.user
-        profile = Profile.objects.filter(user = user).first()
+        try:
+            profile = Profile.objects.filter(user = user).first()
+        except :
+            return JsonResponse({'errno': 1})
         if user.is_superuser :
             datas = Course.objects.all()
             courses = []
@@ -52,9 +60,15 @@ def page(request):
                 else:
                     ele['photo'] = 'course/course-lg.jpg'
                 courses.append(ele)
-            document = datas[0].document.order_by('-date').all().values('title')
+            documents = datas[0].document.order_by('-date').all()
+            doc = []
+            for document in list(documents):
+                ele = {}
+                ele['title'] = document.title
+                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
+                doc.append(ele)
             id = datas[0].id
-            return JsonResponse({'errno': 0, 'courses': courses, 'document': list(document), 'id': id})
+            return JsonResponse({'errno': 0, 'courses': courses, 'document': doc, 'id': id})
         if profile.permission == 1:
             datas = Student.objects.filter(profile = profile).all()
             courses=[]
@@ -69,10 +83,16 @@ def page(request):
                 else:
                     ele['photo'] = 'course/course-lg.jpg'
                 courses.append(ele)
-            document = datas[0].course.document.order_by('-date').all().values('title')
+            documents = datas[0].course.document.order_by('-date').all()
+            doc = []
+            for document in list(documents):
+                ele = {}
+                ele['title'] = document.title
+                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
+                doc.append(ele)
             id = datas[0].course.id
-            return JsonResponse({'errno':0,'courses':courses,'document':list(document),'id':id})
-        else:
+            return JsonResponse({'errno':0,'courses':courses,'document':doc,'id':id})
+        elif profile.promission == 2:
             datas = Course.objects.filter(teacher = profile).all()
             courses = []
             for data in datas:
@@ -86,9 +106,15 @@ def page(request):
                 else:
                     ele['photo'] = 'course/course-lg.jpg'
                 courses.append(ele)
-            document = datas[0].document.order_by('-date').all().values('title')
+            documents = datas[0].document.order_by('-date').all()
+            doc = []
+            for document in list(documents):
+                ele = {}
+                ele['title'] = document.title
+                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
+                doc.append(ele)
             id = datas[0].id
-            return JsonResponse({'errno': 0, 'courses': courses, 'document': list(document), 'id': id})
+            return JsonResponse({'errno': 0, 'courses': courses, 'document': doc, 'id': id})
 
 
 @login_required(login_url='/learning/login/')
@@ -106,9 +132,15 @@ def load(request,id):
     else:
         ele['photo'] = 'course/course-lg.jpg'
     data.append(ele)
-    document = course.document.order_by('-date').all().values('title')
+    documents = course.document.order_by('-date').all()
+    doc =[]
+    for document in list(documents):
+        ele={}
+        ele['title'] = document.title
+        ele['path'] = str(document.title.encode('utf-8')).replace("\\","").replace('\'','')
+        doc.append(ele)
     id = course.id
-    return JsonResponse({'errno':0,'courses':data,'document':list(document),'id':id})
+    return JsonResponse({'errno':0,'courses':data,'document':doc,'id':id})
 
 @csrf_exempt
 def chat(request,id):
@@ -117,17 +149,15 @@ def chat(request,id):
     if request.method == 'GET':
         return render(request,'chat.html',locals())
     if request.method == 'POST':
-        try:
-            req = json.loads(request.body)
-            content = req['content']
-            if content == "":
-                pass
-            else:
-                msg = Msg.objects.create(msg = content,auth = course,sender = profile)
-                msg.save()
-        except:
-            pass
-        return JsonResponse({'errno':0,'msg':msg.msg})
+        req = json.loads(request.body)
+        content = req['content']
+        if content == "":
+            return JsonResponse({'errno': 1})
+        else:
+            msg = Msg.objects.create(msg = content,auth = course,sender = profile)
+            msg.save()
+            return JsonResponse({'errno': 0, 'msg': msg.msg})
+
 
 @csrf_exempt
 def load_msg(request,id):

@@ -30,7 +30,7 @@ class Student(models.Model):
 
 class Document(models.Model):
     title = models.TextField()
-    upload = models.FileField(upload_to = 'file')
+    upload = models.FileField(upload_to = 'file',null = True,blank = True)
     date = models.DateField(auto_now_add =True)
     course = models.ForeignKey(Course,on_delete =models.CASCADE,null = True,blank=True,related_name = 'document')
 
@@ -42,6 +42,30 @@ class Msg(models.Model):
     auth = models.ForeignKey(Course,on_delete=models.CASCADE)
     sender = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
+class Lecturer(models.Model):
+    name = models.TextField()
+    subject = models.TextField()
+    info = models.TextField()
+    email = models.TextField()
 
+class Lecture(models.Model):
+    name = models.TextField()
+    title1 = models.TextField()
+    content1 = models.TextField()
+    title2 = models.TextField()
+    content2 = models.TextField()
+    text = models.TextField(null = False,blank = False)
+    fee = models.IntegerField()
+    image = models.ImageField(upload_to = 'file',null = True,blank = True)
+    teacher = models.ForeignKey(Lecturer,on_delete = models.CASCADE,related_name = 'lecture')
 
+#
+class Detail(models.Model):
+    text = models.TextField()
+    lecture = models.ForeignKey(Lecture,on_delete = models.CASCADE,related_name = 'detail')
+
+class Resource(models.Model):
+    name = models.TextField()
+    file = models.FileField(upload_to = 'file',null = True,blank = True)
+    lecture = models.ForeignKey(Lecture,on_delete = models.CASCADE , related_name = "resource")
 

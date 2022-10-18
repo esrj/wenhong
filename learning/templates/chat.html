@@ -35,7 +35,15 @@
         </nav>
     </div>
 </header>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/assets/js/script.js"></script>
+<script src="/assets/vendors/jquery/jquery.js"></script>
+<script src="/assets/vendors/bootstrap/bootstrap.js"></script>
+<script src="/assets/vendors/counterup/waypoint.js"></script>
+<script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
+<script src="/assets/vendors/jquery.isotope.js"></script>
+<script src="/assets/vendors/owl/owl.carousel.min.js"></script>
+<script src="/assets/vendors/google-map/map.js"></script>
+<script src="/assets/js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
         function logout_(){
@@ -174,13 +182,17 @@
             </div>
         </div>
     </section>
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/vendors/jquery/jquery.js"></script>
+    <script src="/assets/vendors/bootstrap/bootstrap.js"></script>
+    <script src="/assets/vendors/counterup/waypoint.js"></script>
+    <script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="/assets/vendors/jquery.isotope.js"></script>
+    <script src="/assets/vendors/owl/owl.carousel.min.js"></script>
+    <script src="/assets/vendors/google-map/map.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
-    <script src="/assets/js/jquery.js"></script>
     <script>
-
         document.addEventListener('keydown', test);
         function test(){
             if(event.keyCode==13){
@@ -231,8 +243,10 @@
                         </div>
                     `))
                 }else if(res.data.errno == 1){
-                    swal('系統錯誤','請稍後再試','error')
+                    swal('錯誤','請先輸入訊息','error')
                 }
+            }).catch(err=>{
+                alert(err)
             })
         }
         axios.post('/learning/load_msg/{{course.id}}/').then(res=>{
