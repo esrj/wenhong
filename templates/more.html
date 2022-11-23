@@ -1,296 +1,96 @@
 {% extends 'index.html' %}
 
+{%block nav%}
+<link rel="stylesheet" href="/assets/css/navbar.css">
 
-
-{% block content %}
 <style>
-
-    .recent-posts li {
-        clear: both;
-        margin-bottom: 0px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 30px;
+    .nav_{
+        display: none;
     }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 210px !important;
-        object-fit: cover;
+    .navbar-collapse {
+        flex-basis: 100%;
+        flex-grow: 0;
+        align-items: center;
     }
-    @media (max-width: 991px) {
-        .course-img{
-            height: auto;
-            width: 70px;
-            border-radius: 5%;
-        }
-        .widget-post-thumb {
-            width: 80px;
-            border-radius: 5px;
-            margin-right: 15px;
-            overflow: hidden;
-            float: left;
-        }
-        .course_title_size{
-            font-size: 18px !important;
-        }
-        .container1{
-            max-width: 90% !important;
-        }
-        .display-more1{
-            max-width: 62% !important;
-        }
-        .display-more2{
-            max-width: 38% !important;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 190px !important;
-            object-fit: cover;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 30px 30px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 30px;
-        }
-    }
-    @media (max-width: 868px) {
-        .widget-post-thumb {
-            width: 70px;
-            border-radius: 5px;
-            margin-right: 10px;
-            overflow: hidden;
-            float: left;
-        }
-        .course-img{
-            height: auto;
-            width: 70px;
-            border-radius: 5%;
-        }
-
-        .course_title_size{
-            font-size: 17px !important;
-        }
-        .display-more1{
-            max-width: 63% !important;
-        }
-        .display-more2{
-            max-width: 37% !important;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 160px !important;
-            object-fit: cover;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 20px 20px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 20px;
-        }
-    }
-    @media (max-width: 767px) {
-        .course_title_size{
-            font-size: 16px !important;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 15px 15px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 15px;
-        }
-        .display-more1{
-            max-width: 65% !important;
-        }
-        .display-more2{
-            max-width: 35% !important;
-        }
-        .container1{
-            max-width: 95% !important;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 130px !important;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 710px) {
-        .display-more1 {
-            max-width: 65% !important;
-            padding: 5px;
-        }
-        .display-more2 {
-            max-width: 35% !important;
-            padding: 5px;
-        }
-        .container1{
-            max-width: 95% !important;
-        }
-    }
-    @media (max-width: 637px) {
-        .display-more1 {
-            max-width: 63.5% !important;
-            padding: 5px;
-        }
-        .display-more2 {
-            max-width: 36.5% !important;
-            padding: 5px;
-        }
-        .course_title_size{
-            font-size: 14px !important;
-        }
-    }
-    @media (max-width: 575px) {
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 50px 10px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 50px;
-        }
-        .container1{
-            max-width: 70% !important;
-        }
-        .display-more1{
-            max-width: 100% !important;
-        }
-        .display-more2{
-            max-width: 100% !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 190px !important;
-            object-fit: cover;
-        }
-        font-size2{
-            font-size: 14.5px !important;
-        }
-        .course_title_size{
-            font-size: 17px !important;
-        }
-    }
-    @media (max-width: 535px) {
-        font-size2{
-            font-size: 14px !important;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 40px 10px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 40px;
-        }
-        .container1{
-            max-width: 75% !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 185px !important;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 500px) {
-        .course-sidebar.course-sidebar-2 .course-widget ul {
-            padding: 0px 36px 10px;
-        }
-        .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-            padding: 0px 36px;
-        }
-        font-size2{
-            font-size: 13.5px !important;
-        }
-        .container1{
-            max-width: 80% !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 180px !important;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 480px) {
-        .course_title_size{
-            font-size: 16px !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 175px !important;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 460px) {
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 170px !important;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 440px) {
-        font-size2{
-            font-size: 13.5px !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 420px) {
-        font-size2{
-            font-size: 12.5px !important;
-        }
-        .container1{
-            max-width: 90% !important;
-        }
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-    }
-    @media (max-width: 400px) {
-        .course-thumbnail {
-            margin-bottom: 0px;
-        }
-        .img-fluid1 {
-            max-width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-        .edutim-course-content .learn-press-nav-tabs .course-nav a {
-            color: #ababab;
-            font-size: 16px;
-            font-weight: 700;
-            transition: all .4s ease 0s;
-            border: 0px;
-            border-bottom: 2px solid transparent;
-            padding: 15px 20px;
+    @media(max-width: 991px){
+        .conceal-dropdown{
+            display: none !important;
+        }
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 4px 24px;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
         }
     }
 </style>
+
+
+<div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" >
+                    <img src="/img/logo_4.png"  class="img-fluid">
+                </a>
+
+                <!-- Toggler -->
+
+                <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
+                    <span id = "navbar" class="fa fa-bars"></span>
+                </button>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse " id="navbar__">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/#service" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                服務項目<i class="fa fa-angle-down"></i>
+                            </a>
+                            <div id ="conceal-dropdown" class="dropdown-menu conceal-dropdown" aria-labelledby="navbar3">
+                                <a class="dropdown-item " href="/more/2/">
+                                     c 語言程式設計
+                                </a>
+                                <a class="dropdown-item " href="/more/3/">
+                                    python 程式設計
+                                </a>
+                                <a class="dropdown-item " href="/more/1/">
+                                    python 程式設計
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/#contact" class="nav-link js-scroll-trigger">
+                                聯絡我們
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/learning/" class="nav-link">
+                                學員登入
+                            </a>
+                        </li>
+                    </ul>
+
+<!--                    <div class="header-login">-->
+<!--                        <a href="#" class="btn btn-solid-border btn-sm ">Log In</a>-->
+<!--                        <a href="#" class="btn btn-main btn-sm">sign up</a>-->
+<!--                    </div>-->
+                </div> <!-- / .navbar-collapse -->
+            </div> <!-- / .container -->
+        </nav>
+    </div>
+</header>
+{%endblock%}
+
+
+{% block content %}
+<link rel="stylesheet" href="/assets/css/single_course.css">
+
 <section class="page-header">
     <div class="container ">
         <div class="row justify-content-center">
@@ -299,7 +99,7 @@
                     <h1><span class="font-weight-normal">{{lecture.name}}</span></h1>
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                          <a href="/">主頁</a>
+                          <a style="color: #21ad96" href="/">主頁</a>
                         </li>
                          <li class="list-inline-item">/</li>
                         <li class="list-inline-item">
@@ -319,6 +119,7 @@
                     <div class="nav nav-tabs  course-nav" id="nav-tab" role="tablist">
                       <a class="title_size nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">課程大綱</a>
                       <a class="title_size nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">免費資源</a>
+<!--                      <a class="nav-item nav-link" id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">隨堂測驗</a>-->
                       <a class="title_size nav-item nav-link" id="nav-instructor-tab" data-toggle="tab" href="#nav-instructor" role="tab" aria-controls="nav-contact" aria-selected="false">講師資料</a>
                     </div>
                 </nav>
@@ -363,8 +164,47 @@
                             </div>
                         </div>
                     </div>
+<!--                    <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">-->
+<!--                        <div class="edutim-course-curriculum " >-->
+<!--                            <div class="curriculum-scrollable">-->
+<!--                                <ul class="curriculum-sections">-->
+<!--                                    <li class="section">-->
+<!--                                        <div class="section-header">-->
+<!--                                            <div class="section-left">-->
+<!--                                                <h5 class="section-title">{{lecture.name}}隨堂測驗</h5>-->
+<!--                                                <p class="section-desc">-->
+<!--                                                    來個簡單得隨堂測驗看看自己得學習成果！-->
+<!--                                                </p>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <ul class="section-content">-->
+<!--                                            <li class="course-item has-status course-item-lp_lesson">-->
+<!--                                                <a class="section-item-link" href="/img/${item.file}">-->
+<!--                                                    <span class="item-name">測驗一：選擇敘述句</span>-->
+<!--                                                        <div class="course-item-meta">-->
+
+<!--&lt;!&ndash;                                                          <span class="item-meta count-questions">5 questions</span>&ndash;&gt;-->
+<!--                                                          <span class="item-meta duration">5 questions</span><i class="fa item-meta course-item-status trans"></i>-->
+<!--                                                        </div>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                            <li class="course-item has-status course-item-lp_lesson">-->
+<!--                                                <a class="section-item-link" href="/img/${item.file}">-->
+<!--                                                    <span class="item-name">測驗二：迴圈</span>-->
+<!--                                                        <div class="course-item-meta">-->
+
+<!--&lt;!&ndash;                                                          <span class="item-meta count-questions">5 questions</span>&ndash;&gt;-->
+<!--                                                          <span class="item-meta duration">5 questions</span><i class="fa item-meta course-item-status trans"></i>-->
+<!--                                                        </div>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
-                        <!-- Course instructor start -->
                         <div class="courses-instructor">
                             <div class="single-instructor-box">
                                 <div class="row align-items-center">
@@ -373,24 +213,19 @@
                                             <img src="/assets/images/blog/author.jpg" alt="" class="img-fluid">
                                         </div>
                                     </div>
-
                                     <div class="col-lg-8 col-md-8">
                                         <div class="instructor-content">
                                             <h4>{{lecturer.name}}</h4>
                                             <p>教學科目：{{lecturer.subject}}</p>
                                             <p>學經歷：{{lecturer.info}}</p>
                                             <p>聯絡方式：{{lecturer.email}}</p>
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">
 
-                    </div>
                 </div>
             </div>
             <div class="col-lg-4 display-more2">
@@ -446,6 +281,24 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
+    let click_num = 0
+    $('.navbar-toggler').click(()=>{
+        click_num +=1
+        if(click_num%2 == 0){
+            $('#navbar__').addClass('nav_')
+        }else{
+            $('#navbar__').removeClass('nav_')
+        }
+    })
+    let drop_num = 0
+    $('#navbar3').click(()=>{
+        drop_num +=1
+        if(drop_num % 2== 0){
+            $('#conceal-dropdown').addClass('conceal-dropdown')
+        }else{
+            $('#conceal-dropdown').removeClass('conceal-dropdown')
+        }
+    })
     axios.post('/more/{{id}}/').then((res)=>{
         data = res.data.data
         data.forEach((item)=>{
