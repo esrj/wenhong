@@ -6,7 +6,8 @@ from . import views
 
 urlpatterns = [
     path("",views.index),
-    path("more/<int:id>/",views.more)
+    path("page/",views.page),
+    path("load_lecture/",views.load_lecture)
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

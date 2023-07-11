@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from django.contrib.auth import authenticate
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required
-from main.models import Contact,Lecture,Detail,Resource
+from main.models import Contact,Lecture
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -27,21 +24,27 @@ def index(request):
             return JsonResponse({'errno':1})
 
 @csrf_exempt
-def more(request,id):
-    lecture = Lecture.objects.filter(id = id).first()
-    details = lecture.detail.all()
+def page(request):
+    theme = request.GET.get('theme', None)
+    lecture = Lecture.objects.filter(name = theme).first()
     resources = lecture.resource.all()
-    lecturer = lecture.teacher
     if request.method == 'POST':
         all = list(Lecture.objects.all().values('id','name','fee','image'))
         data = []
-        for detail in details:
-            data.append(detail.text)
+        chapter = lecture.chapter.split('\n')
         resource_ = []
         for resource in resources:
             dict = {}
             dict['name'] = resource.name
             dict['file'] = resource.file.name
             resource_.append(dict)
-        return JsonResponse({'errno':0,'data':data,'resource':resource_,"all":all})
+        return JsonResponse({'errno':0,'chapter':chapter,'resource':resource_,"all":all})
     return render(request,'more.html',locals())
+
+@csrf_exempt
+def load_lecture(request):
+    lectures = Lecture.objects.all()
+    data = []
+    for lecture in lectures:
+        data.append(lecture.name)
+    return JsonResponse({'lecture':data})

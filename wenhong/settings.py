@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9a)+lgy^*4mcxafx=0y5$z%8^fpc#(he8_=w_4boqkwdv!0wu-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'myadmin',
     'learning',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

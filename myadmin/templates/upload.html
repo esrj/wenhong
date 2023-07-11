@@ -1,113 +1,32 @@
 {% extends 'index.html' %}
-
 {%block nav%}
-<link rel="stylesheet" href="/assets/css/navbar.css">
-
-<style>
-.btn-admin {
-        padding: 8px 14px !important;
-        font-size: .875rem;
-        border-radius: 5px !important;
-    }
-    .nav{
-        display: none;
-    }
-    .navbar-collapse {
-        flex-basis: 100%;
-        flex-grow: 0;
-        align-items: center;
-    }
-    @media(max-width: 991px){
-        .conceal-dropdown{
-            display: none !important;
-        }
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 4px 24px;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-    }
-</style>
-
-
-<div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" >
-                    <img src="/img/logo_4.png"  class="img-fluid">
-                </a>
-
-                <!-- Toggler -->
-
-                <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
-                    <span id = "navbar" class="fa fa-bars"></span>
-                </button>
-
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse " id="navbar__">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item ">
-                            <a href="/myadmin/" class="nav-link js-scroll-trigger">
-                                報名狀態
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/myadmin/create/" class="nav-link">
-                                創建學員
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/myadmin/info/" class="nav-link">
-                                新增課程
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/myadmin/upload/" class="nav-link">
-                                上傳教材
-                            </a>
-                        </li>
-                        <div class="header-login">
-                            <a style=" border: 2px solid ;font-weight:500;border-color:black;background-color:white;margin-top:11px;margin-left:16px;border-radius: 5px !important;padding: 8px 14px !important;" onclick="logout_()" class="btm-admin btn btn-main btn-sm nav-btn logout_out_btn">登出</a>
-                        </div>
-                    </ul>
-                </div> <!-- / .navbar-collapse -->
-            </div> <!-- / .container -->
-        </nav>
+<ul class="navbar-nav mx-auto">
+    <li class="nav-item ">
+        <a href="/myadmin/" class="nav-link js-scroll-trigger">
+            報名狀態
+        </a>
+    </li>
+    <li class="nav-item ">
+        <a href="/myadmin/create/" class="nav-link">
+            創建學員
+        </a>
+    </li>
+    <li class="nav-item ">
+        <a href="/myadmin/info/" class="nav-link">
+            新增課程
+        </a>
+    </li>
+    <li class="nav-item ">
+        <a href="/myadmin/upload/" class="nav-link">
+            上傳教材
+        </a>
+    </li>
+    <div class="header-login">
+        <a style=" border: 2px solid ;font-weight:500;border-color:black;background-color:white;margin-top:11px;margin-left:16px;border-radius: 5px !important;" onclick="logout_()" class="btn-admin btn btn-main btn-sm nav-btn logout_out_btn">登出</a>
     </div>
-</header>
-<script>
-function logout_(){
-		swal({
-			'title':'確定要登出嗎',
-			'text':'',
-			'buttons':['取消','確認'],
-			'icon':'info',
-		}).then(confirm=>{
-			if(confirm) {
-				axios.post('/myadmin/logout/').then(()=>{
-					swal({
-						'title':'已登出',
-						'text':'正在導向主頁面',
-						'buttons':false,
-						'icon':'success',
-						'timer':1500,
-					})
-					setTimeout(()=>{
-						location.href = '/'
-					},1500)
-				})
-			}
-		})
-	}
-</script>
+</ul>
 {%endblock%}
+
 
 
 {% block content %}
@@ -205,7 +124,6 @@ function logout_(){
 
     axios.post('/myadmin/upload/').then((res)=>{
         data = res.data.data
-        console.log(data)
         data.forEach(item=>{
             $("#all_course").append(`
                 <option value="${item.id}">${item.name}</option>
@@ -214,30 +132,35 @@ function logout_(){
     })
 
     function upload__(){
-        let formdata = new FormData();
-        const file =  $('#form')[0][0].files[0].name
-        const id = $('#all_course')[0]['value']
-        formdata.append('file',$('#form')[0][0].files[0]);
-        formdata.append('id',$('#all_course')[0]['value'])
-        axios({
-            url:'/myadmin/document/',
-            method:'post',
-            data:formdata,
-            headers:{'Content-Type': 'multipart/form-data;charset=UTF-8'}
-        }).then(res=>{
-            if(res.data.errno == 0){
-                swal('成功新增','','success')
-                $('#list').append($(`
-                    <div id="document-${res.data.id}" style="margin-top: 15px;margin-bottom: 15px">
-                        <a style="margin-left: 5px;color: #017496">${file}</a> <a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${res.data.id})"><i class="fa fa-window-close"></i></a>
-                    </div>
-                `))
-            }
-        })
+        try{
+
+            let formdata = new FormData();
+            const file =  $('#form')[0][0].files[0]
+            console.log(file)
+            const id = $('#all_course')[0]['value']
+            formdata.append('file',$('#form')[0][0].files[0]);
+            formdata.append('id',$('#all_course')[0]['value'])
+            axios({
+                url:'/myadmin/document/',
+                method:'post',
+                data:formdata,
+                headers:{'Content-Type': 'multipart/form-data;charset=UTF-8'}
+            }).then(res=>{
+                if(res.data.errno == 0){
+                    swal('成功新增','','success')
+                    $('#list').append($(`
+                        <div id="document-${res.data.id}" style="margin-top: 15px;margin-bottom: 15px">
+                            <a style="margin-left: 5px;color: #017496">${file}</a> <a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${res.data.id})"><i class="fa fa-window-close"></i></a>
+                        </div>
+                    `))
+                }
+            })
+        }catch(e){
+            swal('新增失敗','資料填寫不齊全','info')
+        }
     }
     $("#select_form").change(()=>{
           id = $('#all_course')[0]['value']
-          console.log(id)
           axios.post(`/myadmin/load_document/${id}/`).then(res=>{
               data = res.data.documents
               $("#list").empty()
@@ -267,7 +190,32 @@ function logout_(){
             }
         })
     }
+
+    function logout_(){
+		swal({
+			'title':'確定要登出嗎',
+			'text':'',
+			'buttons':['取消','確認'],
+			'icon':'info',
+		}).then(confirm=>{
+			if(confirm) {
+				axios.post('/myadmin/logout/').then(()=>{
+					swal({
+						'title':'已登出',
+						'text':'正在導向主頁面',
+						'buttons':false,
+						'icon':'success',
+						'timer':1500,
+					})
+					setTimeout(()=>{
+						location.href = '/'
+					},1500)
+				})
+			}
+		})
+	}
 </script>
+
 
 
 

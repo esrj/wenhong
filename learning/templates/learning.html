@@ -1,0 +1,279 @@
+{% extends 'index.html' %}
+
+
+
+{%block nav%}
+<ul class="navbar-nav mx-auto">
+    <li class="nav-item ">
+        <a href="/#contact" class="nav-link js-scroll-trigger">
+            聯絡我們
+        </a>
+    </li>
+</ul>
+<div class="header-login">
+    <a href = "/learning/" style="margin-left: 17px"  class="btn btn-solid-border btn-sm nav-btn">我的課程</a>
+    <a style="background-color:#21ad96;color:white"  onclick="logout()" class="btn btn-main btn-sm nav-btn logout_out_btn">登出</a>
+</div>
+{%endblock%}
+
+
+{% block content %}
+<style>
+    .author-img img {
+        border-radius: 100%;
+        border: 0px solid #fff;
+        margin-top: -20px;
+        width: 70px;
+    }
+    .author-img{
+        border-radius: 100%;
+        border: 0px solid #fff;
+        margin: 0px;
+        width: 70px;
+    }
+    .blog-sidebar .widget.widget-search .search-form [type=submit] {
+        color: #fff;
+        background: #20ad96;
+        border: 1px solid #20ad96;
+        padding: 13.3px 18px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .author {
+        margin-top :0px;
+        margin-bottom:40px;
+        padding: 40px;
+        padding-bottom: 20px;
+        border: 1px dashed #ddd;
+        position: relative;
+        border-radius: 5px;
+    }
+    .recent-posts li {
+        clear: both;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 40px;
+    }
+    .img-fluid {
+        width: 100%;
+        max-height: 350px;
+        object-fit: cover;
+    }
+</style>
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>歡迎回來 {{request.user.username}} !</h1>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a style="color: #20ae96" href = "/">主頁 </a> / 您的課程
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-xl-8">
+                <div style="display:flex;height:114px" class="author">
+                    <div style="margin: 0" class="author-img">
+                        <img src="/img/user.png" alt="" class="img-fluid">
+                    </div>
+                    <div id="teacher" class="author-info">
+
+                    </div>
+                </div>
+                <div style="padding:25px" class="author">
+                    <div  class="post-single" id = "mycourse">
+                    </div>
+                </div>
+      		</div>
+      		<div class="col-lg-4 col-xl-4">
+				<div class="blog-sidebar mt-5 mt-lg-0">
+                    <div class="widget widget-search">
+                        <form role="search" class="search-form">
+                            <input id="search" type="text" class="form-control" placeholder="搜尋課名">
+                            <button  type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="widget widget_latest_post">
+                        <h4 class="widget-title">所有課程</h4>
+                        <ul id="course_list" class="recent-posts">
+                        </ul>
+                    </div>
+                </div>
+      		</div>
+		</div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="/assets/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+<script>
+    url = location.href
+    axios.post(url).then((res)=> {
+        // 尚未註冊課程
+        if(res.data.errno == 1){
+            $('#mycourse').append($(`
+                <h4>很抱歉，您尚未註冊課程</h4>
+            `))
+            $('#teacher').append($(`
+                <h4>尚未有教師資訊</h4>
+            `))
+            $('#course_list').append($(`
+                <li>
+                <h4>目前沒有您的課程</h4>
+                </li>
+            `))
+        }
+
+        // 訪問不是自己的課程
+        if(res.data.errno == 3){
+            $('#mycourse').append($(`
+                <h4>您不在這個課程中或此課程不存在</h4>
+            `))
+            $('#teacher').append($(`
+                <h4>很抱歉，無法公開教師資訊</h4>
+            `))
+        }
+
+
+        // 加載課程資訊
+        if (res.data.errno == 0){
+            //加載學生權限
+            course = res.data.main
+            $('#mycourse').append(`
+                <div class="post-thumb">
+                    <img src="/img/${course.photo}" alt="" class="img-fluid">
+                </div>
+                <div id = "course_document" class="single-post-content">
+                    <h4>${course.name}</h4>
+                    <br>
+                    <a style="margin: 8px;;color: #3f3a64" href="https://meet.google.com/${course.meet}">
+                        <img style="height:16px;margin: 8px;margin-left: 0.5px;margin-bottom: 11px;color: #3f3a64" src = '/assets/images/meet.png'>線上上課連結
+                    </a>
+                    <br>
+                </div>
+            `)
+        }else if (res.data.errno == 2){
+            //加載教師權限
+            course = res.data.main
+            $('#mycourse').append(`
+                <div class="post-thumb">
+                    <img src="/img/${course.photo}" alt="" class="img-fluid">
+                </div>
+                <div id = "course_document" class="single-post-content">
+                    <h4>${course.name}</h4>
+                    <br>
+                    <a style="margin: 8px;color: #3f3a64" href="#">
+                        <img style="height:19px;margin: 8px;margin-left: 0px;margin-bottom: 12px;color: #3f3a64" src="/img/user.png">這堂課的學生：${course.your_student}
+                    </a>
+                    <br>
+                    <a style="margin: 8px;color: #3f3a64" href="https://meet.google.com/${course.meet}">
+                        <img style="height:16px;margin: 8px;margin-left: 0.5px;margin-bottom: 11px;color: #3f3a64" src = '/assets/images/meet.png'>線上上課連結
+                    </a>
+                    <br>
+                </div>
+            `)
+        }
+
+
+        //加載入側邊課程
+        courses = res.data.courses
+        if (courses){
+            courses.forEach(item => {
+                $('#course_list').append(`
+                    <li>
+                        <div class="widget-post-thumb">
+                            <a onclick="load(${item.id})"><img style=";height:80px;object-fit: cover;" src="/img/${item.photo}/" alt="" class="img-fluid"></a>
+                        </div>
+                        <div class="widget-post-body">
+                            <h6> <a href="/learning/?name=${item.name}">${item.name}</a></h6>
+                            <span>教師：${item.teacher}</span>
+                        </div>
+                    </li>
+                    <div></div>
+                `)
+            })
+        }
+
+        // 加載入課程文件
+        let document = res.data.document
+        if (document){
+            document.forEach(item=>{
+                $('#course_document').append(`
+                    <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.path}/">
+                        <img style="height:23px;margin: 8px;margin-left: -3.5px;margin-bottom: 8px;color: #3f3a64" src = "/assets/images/file.png">${item.title}
+                    </a><br>
+                `)
+            })
+            $('#teacher').empty()
+            $('#teacher').append(`
+                <h4>教師：${course.teacher}</h4>
+            `)
+        }
+    })
+
+    $('#search').keyup(()=>{
+        axios.post('/learning/search/',{
+            'name':$('#search').val()
+        }).then((res)=>{
+            if(res.data.errno == 0){
+                $("#course_list").empty()
+                datas = res.data.datas
+                console.log(datas)
+                datas.forEach(item=>{
+                    $('#course_list').append(`
+
+                        <li>
+                            <div class="widget-post-thumb">
+                                <a href = "/learning/?name=${item.name}"><img style=";height:80px;object-fit: cover;" src="/img/${item.photo}/" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="widget-post-body">
+                                <h6> <a href = "/learning/?name=${item.name}">${item.name}</a></h6>
+                                <span>教師：${item.teacher}</span>
+                            </div>
+                        </li>
+                    `)
+                })
+            }
+        })
+    })
+
+    function logout(){
+        swal({
+            title:'確定要登出',
+            buttons:['取消','確認'],
+            icon: 'info'
+        }).then(confirm=>{
+            if(confirm){
+                axios.post('/myadmin/logout/').then((res)=>{
+                    if(res.data.errno == 0){
+                        swal({
+                            title:'已成功登出',
+                            text: '歡迎再次回來',
+                            buttons:false,
+                            icon: 'success',
+                            timer: 1500
+                        })
+                    }
+                }).then(()=>{
+                    setTimeout(()=>{
+                        window.location = '/learning/login'
+                    },1500)
+                })
+            }
+        })
+    }
+</script>
+
+{% endblock %}
+
+

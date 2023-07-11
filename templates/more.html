@@ -1,96 +1,315 @@
 {% extends 'index.html' %}
 
-{%block nav%}
-<link rel="stylesheet" href="/assets/css/navbar.css">
-
-<style>
-    .nav_{
-        display: none;
-    }
-    .navbar-collapse {
-        flex-basis: 100%;
-        flex-grow: 0;
-        align-items: center;
-    }
-    @media(max-width: 991px){
-        .conceal-dropdown{
-            display: none !important;
-        }
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 4px 24px;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-    }
-</style>
-
-
-<div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" >
-                    <img src="/img/logo_4.png"  class="img-fluid">
-                </a>
-
-                <!-- Toggler -->
-
-                <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
-                    <span id = "navbar" class="fa fa-bars"></span>
-                </button>
-
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse " id="navbar__">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/#service" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                服務項目<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div id ="conceal-dropdown" class="dropdown-menu conceal-dropdown" aria-labelledby="navbar3">
-                                <a class="dropdown-item " href="/more/2/">
-                                     c 語言程式設計
-                                </a>
-                                <a class="dropdown-item " href="/more/3/">
-                                    python 程式設計
-                                </a>
-                                <a class="dropdown-item " href="/more/1/">
-                                    python 程式設計
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/#contact" class="nav-link js-scroll-trigger">
-                                聯絡我們
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/learning/" class="nav-link">
-                                學員登入
-                            </a>
-                        </li>
-                    </ul>
-
-<!--                    <div class="header-login">-->
-<!--                        <a href="#" class="btn btn-solid-border btn-sm ">Log In</a>-->
-<!--                        <a href="#" class="btn btn-main btn-sm">sign up</a>-->
-<!--                    </div>-->
-                </div> <!-- / .navbar-collapse -->
-            </div> <!-- / .container -->
-        </nav>
-    </div>
-</header>
-{%endblock%}
-
 
 {% block content %}
-<link rel="stylesheet" href="/assets/css/single_course.css">
+<!--<link rel="stylesheet" href="/assets/css/single_course.css">-->
+<style>
+.recent-posts li {
+        clear: both;
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 30px;
+}
+.img-fluid1 {
+    max-width: 100%;
+    height: 240px !important;
+    object-fit: cover;
+}
+@media (max-width: 1200px) {
+    .img-fluid1 {
+        max-width: 100%;
+        height: 210px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 991px) {
+    .course-img{
+        height: auto;
+        width: 70px;
+        border-radius: 5%;
+    }
+    .widget-post-thumb {
+        width: 80px;
+        border-radius: 5px;
+        margin-right: 15px;
+        overflow: hidden;
+        float: left;
+    }
+    .course_title_size{
+        font-size: 18px !important;
+    }
+    .display-more1 {
+        max-width: 100% !important;
+        padding-left: 90px;
+        padding-right: 90px;
+        padding-bottom: 25px;
+    }
+    .display-more2 {
+        max-width: 100% !important;
+        padding-left: 90px;
+        padding-right: 90px;
+    }
 
+    .img-fluid1 {
+        max-width: 100%;
+        height: 290px !important;
+        object-fit: cover;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 30px 30px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 30px;
+    }
+}
+@media (max-width: 868px) {
+    .widget-post-thumb {
+        width: 80px;
+        border-radius: 5px;
+        margin-right: 10px;
+        overflow: hidden;
+        float: left;
+    }
+    .course-img{
+        height: auto;
+        width: 70px;
+        border-radius: 5%;
+    }
+    .course_title_size{
+        font-size: 20px !important;
+    }
+    .display-more1 {
+        max-width: 100% !important;
+        padding-left: 100px;
+        padding-right: 100px;
+        padding-bottom: 25px;
+    }
+    .display-more2 {
+        max-width: 100% !important;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 20px 20px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 20px;
+    }
+}
+@media (max-width: 767px) {
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 15px 15px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 15px;
+    }
+    .display-more1 {
+        max-width: 100% !important;
+        padding-right: 85px;
+        padding-left: 85px;
+    }
+    .display-more2 {
+        max-width: 100% !important;
+        padding-right: 85px;
+        padding-left: 85px;
+    }
+    .container1{
+        max-width: 95% !important;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 280px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 710px) {
+    .display-more1 {
+        max-width: 100% !important;
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+    .display-more2 {
+        max-width: 100% !important;
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 250px !important;
+        object-fit: cover;
+    }
+    .container1{
+        max-width: 95% !important;
+    }
+}
+@media (max-width: 637px) {
+    .display-more1 {
+        max-width: 100% !important;
+        padding-right: 55px;
+        padding-left: 55px;
+    }
+    .display-more2 {
+        max-width: 100% !important;
+        padding-right: 55px;
+        padding-left: 55px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 240px !important;
+        object-fit: cover;
+    }
+
+}
+@media (max-width: 575px) {
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 50px 10px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 50px;
+    }
+    .container1{
+        max-width: 70% !important;
+    }
+    .display-more1{
+        max-width: 100% !important;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .display-more2{
+        max-width: 100% !important;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 220px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 535px) {
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 40px 10px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 40px;
+    }
+    .container1{
+        max-width: 75% !important;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 240px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 500px) {
+    .course-sidebar.course-sidebar-2 .course-widget ul {
+        padding: 0px 36px 10px;
+    }
+    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
+        padding: 0px 36px;
+    }
+    .container1{
+        max-width: 80% !important;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 235px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 480px) {
+    .course_title_size{
+        font-size: 16px !important;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 230px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 460px) {
+    .display-more1{
+        max-width: 100% !important;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .display-more2{
+        max-width: 100% !important;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 220px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 440px) {
+    font-size2{
+        font-size: 13.5px !important;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 215px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 420px) {
+    font-size2{
+        font-size: 12.5px !important;
+    }
+    .container1{
+        max-width: 90% !important;
+    }
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 210px !important;
+        object-fit: cover;
+    }
+}
+@media (max-width: 400px) {
+    .course-thumbnail {
+        margin-bottom: 0px;
+    }
+    .img-fluid1 {
+        max-width: 100%;
+        height: 200px !important;
+        object-fit: cover;
+    }
+    .edutim-course-content .learn-press-nav-tabs .course-nav a {
+        color: #ababab;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all .4s ease 0s;
+        border: 0px;
+        border-bottom: 2px solid transparent;
+        padding: 15px 20px;
+    }
+}
+</style>
 <section class="page-header">
     <div class="container ">
         <div class="row justify-content-center">
@@ -119,27 +338,24 @@
                     <div class="nav nav-tabs  course-nav" id="nav-tab" role="tablist">
                       <a class="title_size nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">課程大綱</a>
                       <a class="title_size nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">免費資源</a>
-<!--                      <a class="nav-item nav-link" id="nav-feedback-tab" data-toggle="tab" href="#nav-feedback" role="tab" aria-controls="nav-contact" aria-selected="false">隨堂測驗</a>-->
                       <a class="title_size nav-item nav-link" id="nav-instructor-tab" data-toggle="tab" href="#nav-instructor" role="tab" aria-controls="nav-contact" aria-selected="false">講師資料</a>
                     </div>
                 </nav>
                 <div class="tab-content edutim-course-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="single-course-details ">
-                            <h4 class="course-title title_size">{{lecture.title1}}</h4>
+                            <h4 class="course-title title_size">{{lecture.name}}介紹</h4>
                             <p class="font_size">
-                                {{lecture.content1}}
+                                {{lecture.introduce}}
                             </p>
-                            <h4 class="course-title title_size">{{lecture.title2}}</h4>
+                            <h4 class="course-title title_size">課程大綱</h4>
                             <p class="font_size">
-                                {{lecture.content2}}
+                                {{lecture.outline}}
                             </p>
                             <div class="course-widget course-info">
                                 <h4 class="course-title title_size">您將會學到</h4>
                                 <ul>
-                                    <span id = "learn" class="font_size">
-
-                                    </span>
+                                    <span id = "chapter" class="font_size"></span>
                                 </ul>
                             </div>
                         </div>
@@ -164,46 +380,6 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="tab-pane fade" id="nav-feedback" role="tabpanel" aria-labelledby="nav-feedback-tab">-->
-<!--                        <div class="edutim-course-curriculum " >-->
-<!--                            <div class="curriculum-scrollable">-->
-<!--                                <ul class="curriculum-sections">-->
-<!--                                    <li class="section">-->
-<!--                                        <div class="section-header">-->
-<!--                                            <div class="section-left">-->
-<!--                                                <h5 class="section-title">{{lecture.name}}隨堂測驗</h5>-->
-<!--                                                <p class="section-desc">-->
-<!--                                                    來個簡單得隨堂測驗看看自己得學習成果！-->
-<!--                                                </p>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <ul class="section-content">-->
-<!--                                            <li class="course-item has-status course-item-lp_lesson">-->
-<!--                                                <a class="section-item-link" href="/img/${item.file}">-->
-<!--                                                    <span class="item-name">測驗一：選擇敘述句</span>-->
-<!--                                                        <div class="course-item-meta">-->
-
-<!--&lt;!&ndash;                                                          <span class="item-meta count-questions">5 questions</span>&ndash;&gt;-->
-<!--                                                          <span class="item-meta duration">5 questions</span><i class="fa item-meta course-item-status trans"></i>-->
-<!--                                                        </div>-->
-<!--                                                </a>-->
-<!--                                            </li>-->
-<!--                                            <li class="course-item has-status course-item-lp_lesson">-->
-<!--                                                <a class="section-item-link" href="/img/${item.file}">-->
-<!--                                                    <span class="item-name">測驗二：迴圈</span>-->
-<!--                                                        <div class="course-item-meta">-->
-
-<!--&lt;!&ndash;                                                          <span class="item-meta count-questions">5 questions</span>&ndash;&gt;-->
-<!--                                                          <span class="item-meta duration">5 questions</span><i class="fa item-meta course-item-status trans"></i>-->
-<!--                                                        </div>-->
-<!--                                                </a>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="tab-pane fade" id="nav-instructor" role="tabpanel" aria-labelledby="nav-instructor-tab">
                         <div class="courses-instructor">
                             <div class="single-instructor-box">
@@ -215,46 +391,45 @@
                                     </div>
                                     <div class="col-lg-8 col-md-8">
                                         <div class="instructor-content">
-                                            <h4>{{lecturer.name}}</h4>
-                                            <p>教學科目：{{lecturer.subject}}</p>
-                                            <p>學經歷：{{lecturer.info}}</p>
-                                            <p>聯絡方式：{{lecturer.email}}</p>
+                                            <h4>{{lecture.teacher}}</h4>
+                                            <p>教學科目：{{lecture.name}}</p>
+                                            <p>簡歷：{{lecture.teacher_info}}</p>
+                                            <p>聯絡方式：{{lecture.teacher_email}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-lg-4 display-more2">
                 <div class="course-sidebar course-sidebar-2">
                     <div class="course-widget course-details-info">
                         <div class="course-thumbnail">
-                            <img src="/assets/images/course/course2.jpg" alt="" class="img-fluid img-fluid1 w-100">
+                            <img  src="/img/{{lecture.image}}" alt="" class="img-fluid img-fluid1 w-100">
                         </div>
                         <ul>
                             <li>
-                                <div class=" font_size d-flex justify-content-between align-items-center">
+                                <div class=" d-flex justify-content-between align-items-center">
                                     <span><i class="fa fa-money-bill"></i>價格:</span>
                                     {{lecture.fee}} / hr
                                 </div>
                             </li>
                             <li>
-                                <div class=" font_size d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <span><i class="far fa-user"></i>講師 :</span>
-                                    {{lecturer.name}}
+                                    {{lecture.teacher}}
                                 </div>
                             </li>
                             <li>
-                                <div class=" font_size d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <span><i class="far fa-calendar"></i>上課時間</span>
                                     不限
                                 </div>
                             </li>
                         </ul>
-                        <div class="font_size buy-btn">
+                        <div class="buy-btn">
                             <button id = "btn" style="border:#20ad96;color: #f7f7f7" class="font_size button button-enroll-course btn btn-primary">
                                 馬上報名
                             </button>
@@ -281,34 +456,19 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
-    let click_num = 0
-    $('.navbar-toggler').click(()=>{
-        click_num +=1
-        if(click_num%2 == 0){
-            $('#navbar__').addClass('nav_')
-        }else{
-            $('#navbar__').removeClass('nav_')
-        }
-    })
-    let drop_num = 0
-    $('#navbar3').click(()=>{
-        drop_num +=1
-        if(drop_num % 2== 0){
-            $('#conceal-dropdown').addClass('conceal-dropdown')
-        }else{
-            $('#conceal-dropdown').removeClass('conceal-dropdown')
-        }
-    })
-    axios.post('/more/{{id}}/').then((res)=>{
-        data = res.data.data
+    url = location.href
+    console.log(url)
+    axios.post(url).then((res)=>{
+        data = res.data.chapter
         data.forEach((item)=>{
-            $("#learn").append($(`
+            $("#chapter").append($(`
                 <li style="margin-top: 5px;">
                     <i class="fa fa-check"></i>
                     ${item}
                 </li>
             `))
         })
+        // 載入可下載文件
         resource = res.data.resource
         let id = 0
         resource.forEach(item=>{
@@ -325,15 +485,16 @@
                 </li>
             `))
         })
+        // 載入側邊欄課程
         all = res.data.all
         all.forEach(item=>{
             $('#all').append($(`
                 <li>
                     <div class="widget-post-thumb">
-                        <a href="/more/${item.id}/"><img src="/img/${item.image}" alt="" class="img-fluid course-img"></a>
+                        <a href="/page/?theme=${item.name}"><img src="/img/${item.image}" style="width: 80px;height: 80px;object-fit: cover" class=" course-img"></a>
                     </div>
                     <div class="widget-post-body">
-                        <h6 class="course_title_size"> <a href="/more/${item.id}/">${item.name}</a></h6>
+                        <h6 class="course_title_size"> <a href="/page/?theme=${item.name}">${item.name}</a></h6>
                         <h5 class="course_title_size">$ ${item.fee}/hr</h5>
                     </div>
                 </li>

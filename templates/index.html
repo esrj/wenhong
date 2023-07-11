@@ -2,120 +2,96 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="Education LMS template by Dreambuzz">
-  <meta name="keywords" content="Eduhash,education,lms,seo,course,online,learning,caoch,training,tutor">
-  <meta name="author" content="themeturn.com">
-  <title>文宏線上程式學院，c語言、python程式設計、django網頁開發教學</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Education LMS template by Dreambuzz">
+    <meta name="keywords" content="Eduhash,education,lms,seo,course,online,learning,caoch,training,tutor">
+    <meta name="author" content="themeturn.com">
+    <title>文宏線上程式學院，c語言、python程式設計、django網頁開發教學</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="文宏線上程式學院，提供c語言、python程式設計即django網頁開發的教學">
+    <link rel="icon" href="/assets/images/favicon.png"  type="image/png" >
+    <link rel="stylesheet" href="/assets/css/style_.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="/assets/vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/mycss.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <script src="/assets/vendors/jquery/jquery.js"></script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="文宏線上程式學院，提供c語言、python程式設計即django網頁開發的教學">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
-  <link rel="stylesheet" href="/assets/css/style_.css">
-  <link rel="stylesheet" href="/assets/css/responsive.css">
-  <link rel="stylesheet" href="/assets/vendors/bootstrap/bootstrap.css">
-  <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.css">
-  <link rel="stylesheet" href="/assets/vendors/flaticon/flaticon.css">
-  <link rel="stylesheet" href="/assets/vendors/animate-css/animate.css">
-  <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="/assets/vendors/owl/assets/owl.theme.default.min.css">
-  <link rel="stylesheet" href="/assets/css/mycss.css">
 
 </head>
 
-<body id="top-header">
+<span id="top-header"></span>
 
 
-{%block nav%}
+
 <link rel="stylesheet" href="/assets/css/navbar.css">
-
-<style>
-    .nav{
-        display: none;
-    }
-    .navbar-collapse {
-        flex-basis: 100%;
-        flex-grow: 0;
-        align-items: center;
-    }
-    @media(max-width: 991px){
-        .conceal-dropdown{
-            display: none !important;
-        }
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 4px 24px;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-    }
-</style>
-
-
 <div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" >
-                    <img src="/img/logo_4.png"  class="img-fluid">
-                </a>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a href="/" class="navbar-brand" >
+                <img src="/img/logo_4.png"  class="img-fluid">
+            </a>
+            <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
+                <span id = "navbar" class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbar__">
+                {%block nav%}
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            服務項目
+                        </a>
+                        <div class=" dropdown-menu" >
+                            <span id="load_lecture">
 
-                <!-- Toggler -->
-
-                <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
-                    <span id = "navbar" class="fa fa-bars"></span>
-                </button>
-
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse " id="navbar__">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/#service" id="navbar3" role="button"  >
-                                服務項目<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div id ="conceal-dropdown" class="dropdown-menu conceal-dropdown" aria-labelledby="navbar3">
-                                <a class="dropdown-item " href="/more/2/">
-                                     c 語言程式設計
+                            </span>
+                        </div>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="/#contact" class="nav-link js-scroll-trigger">
+                            聯絡我們
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        {% if request.user.is_authenticated %}
+                        <a href="/learning/" class="nav-link">
+                            您的課程
+                        </a>
+                        {% else %}
+                        <a href="/learning/" class="nav-link">
+                            學員登入
+                        </a>
+                        {% endif %}
+                    </li>
+                </ul>
+                <script>
+                    axios.post('/load_lecture/').then((res)=>{
+                        lectures = res.data.lecture
+                        lectures.forEach(item=>{
+                            $('#load_lecture').append($(`
+                                <a  class="dropdown-margin dropdown-item " href="/page?theme=${item}">
+                                    ${item}
                                 </a>
-                                <a class="dropdown-item " href="/more/3/">
-                                    python 程式設計
-                                </a>
-                                <a class="dropdown-item " href="/more/1/">
-                                    python 程式設計
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/#contact" class="nav-link js-scroll-trigger">
-                                聯絡我們
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/learning/" class="nav-link">
-                                學員登入
-                            </a>
-                        </li>
-                    </ul>
+                            `))
+                        })
+                    })
+                </script>
+            {%endblock%}
 
-<!--                    <div class="header-login">-->
-<!--                        <a href="#" class="btn btn-solid-border btn-sm ">Log In</a>-->
-<!--                        <a href="#" class="btn btn-main btn-sm">sign up</a>-->
-<!--                    </div>-->
-                </div> <!-- / .navbar-collapse -->
-            </div> <!-- / .container -->
-        </nav>
-    </div>
-</header>
-{%endblock%}
+            </div>
+        </div>
+    </nav>
+</div>
 
 
 {% block content %}
-
 <section class="banner">
     <div class="container">
         <div class="row justify-content-center">
@@ -145,13 +121,13 @@
             <div class="col-lg-4 col-md-6 display-course left-course">
                 <div style="border:1px solid #eef2fb" class="course-block">
                     <div style="border-radius: 0px;" class="course-img">
-                        <a href= "/more/2/">
+                        <a href= "/page?theme=python 程式設計">
                             <img src="/assets/images/blog/blog1.jpg" alt="" class="img-fluid">
                         </a>
                         <div class="course-price ">$700/hr </div>
                     </div>
                     <div class="course-content">
-                        <a href= "/more/2/"><span class="course-cat course-cat-size">c、python 基礎程式語言</span></a>
+                        <a href= "/page?theme=python 程式設計"><span class="course-cat course-cat-size">c、python 基礎程式語言</span></a>
                         <h4 class= "course_size"><a href= "/more/2/">訓練資訊的邏輯思考，帶領你進入電腦的世界</a></h4>
                     </div>
                 </div>
@@ -159,13 +135,13 @@
             <div class="col-lg-4 col-md-6 display-course">
                 <div style="border:1px solid #eef2fb" class="course-block">
                     <div style="border-radius: 0px;" class="course-img">
-                        <a href= "/more/1/">
+                        <a href= "/page?theme=django 網頁設計">
                             <img src="/assets/images/blog/blog2.jpg" alt="" class="img-fluid">
                         </a>
                         <div class="course-price ">$800/hr </div>
                     </div>
                     <div class="course-content">
-                        <a href= "/more/1/"><span class="course-cat course-cat-size">Django 網頁設計</span></a>
+                        <a href= "/page?theme=django 網頁設計"><span class="course-cat course-cat-size">Django 網頁設計</span></a>
                         <h4 class= "course_size"><a href= "/more/1/">設計屬於你的網頁，手把手帶領你做出成品</a></h4>
                     </div>
                 </div>
@@ -174,14 +150,14 @@
             <div  class=" col-lg-4 col-md-6 display-course right-course">
                 <div style="border:1px solid #eef2fb" class="course-block">
                     <div style="border-radius: 0px;" class="course-img">
-                        <a href= "/more/1/">
+                        <a href= "#">
                             <img src="/assets/images/blog/blog3.jpg" alt="" class="img-fluid">
                         </a>
                         <div class="course-price ">$？ </div>
                     </div>
                     <div  class="course-content">
-                        <a href= "/more/1/"><span class="course-cat course-cat-size">小班制教學</span></a>
-                        <h4 class= "course_size"><a href= "/more/1/">兩人成班，越多人價格越便宜，歡迎留言詢問</a></h4>
+                        <a href= "#"><span class="course-cat course-cat-size">其他課程</span></a>
+                        <h4 class= "course_size"><a href= "#">其他與電腦程式相關課程皆可以詢問</a></h4>
                     </div>
                 </div>
             </div>
@@ -208,9 +184,7 @@
                         <i class="flaticon-flag"></i>
                     </div>
                     <div class="feature-text">
-                        <h5 class = "title_size1">就業導向</h4>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">以實務見解為主</p>
-                        <p class = "font_size hide-text" style="margin-bottom: 0px;">不拐彎抹角、直奔主題</p>
+                        <h5 class = "title_size1">就業導向</h5>
                     </div>
                 </div>
             </div>
@@ -220,9 +194,7 @@
                         <i class="flaticon-layers"></i>
                     </div>
                     <div class="feature-text">
-                        <h5 class = "title_size1">自我成長</h4>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;" >培養寫程式的樂趣</p>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">掌握自我學習的訣竅</p>
+                        <h5 class = "title_size1">自我成長</h5>
                     </div>
                 </div>
             </div>
@@ -232,9 +204,7 @@
                         <i class="flaticon-video-camera"></i>
                     </div>
                     <div class="feature-text">
-                        <h5 class = "title_size1">遠距授課</h4>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">疫情下最佳選擇</p>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">同意錄製上課內容，方便複習</p>
+                        <h5 class = "title_size1">遠距授課</h5>
                     </div>
                 </div>
             </div>
@@ -244,9 +214,7 @@
                         <i class="flaticon-help"></i>
                     </div>
                     <div class="feature-text">
-                        <h6 class = "title_size1">翻轉討論室</h4>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">相互討論、良性競爭</p>
-                        <p class = "font_size hide-text" style="margin-bottom: 0;">尋找志同道合的朋友一起進步</p>
+                        <h5 class = "title_size1">翻轉討論室</h5>
                     </div>
                 </div>
             </div>
@@ -271,15 +239,15 @@
                 <ul class="about-features">
                     <li style="display:flex">
                         <i class="fa fa-check"></i>
-                        <h6 class="title_size1">一對一教學</h5>
+                        <h6 class="title_size1">一對一教學</h6>
                     </li>
                     <li  style="display:flex">
                         <i class="fa fa-check"></i>
-                        <h6 class="title_size1">完善課後輔導系統</h5>
+                        <h6 class="title_size1">完善課後輔導系統</h6>
                     </li>
                     <li  style="display:flex">
                         <i class="fa fa-check"></i>
-                        <h6 class="title_size1">不同面向的人生建議</h5>
+                        <h6 class="title_size1">不同面向的人生建議</h6>
                     </li>
                 </ul>
                 <a href="#contact" class="btn btn-main">聯絡我們</a>
@@ -287,8 +255,6 @@
         </div>
     </div>
 </section>
-<style>
-</style>
 
 <section  class="testimonial section-block">
     <div class="container">
@@ -307,40 +273,40 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-xl-6 col-lg-6 teacher-info">
                 <div class="section-heading ">
-                    <span class="subheading">沒時間選老師嗎？</span>
-                    <h3>100% 師資保障</h3>
-                    <p class="font_size">低於10%的教師合格率，教師嚴選流程如下</p>
+                    <span class="subheading">對未來感到迷惘嗎？</span>
+                    <h3>培養對學習的興趣</h3>
+                    <p class="font_size">興趣是成為軟體工程師的必要元素。試著做出人生第一份屬於自己的專案</p>
                 </div>
                 <div class="about-text-block">
                     <div class="icon-box">
-                        <i class="flaticon-video-camera"></i>
+                        <i class="flaticon-help"></i>
                     </div>
                     <div class="about-desc">
-                        <h4 class="title_size1">教學風格</h4>
+                        <h4 class="title_size1">扎實基礎</h4>
                         <p  class="font_size">
-                            以實戰為主的教學模式，讓學生在學習中獲得更大的成就感，培養出對程式的樂趣
+                            以實戰為主的教學模式，讓學生在能夠在不同的挑戰中都能脫穎而出
                         </p>
                     </div>
                 </div>
                 <div class="about-text-block">
                     <div class="icon-box">
-                        <i class="flaticon-flag"></i>
+                        <i class="flaticon-idea"></i>
                     </div>
                     <div class="about-desc">
-                        <h4 class="title_size1">嚴格面試</h4>
+                        <h4 class="title_size1">注重創新</h4>
                         <p  class="font_size">
-                            除了擁有清晰的觀念，我們亦要求教師懂得換位思考，理解學生的問題所在
+                            我們不僅教授程式語言，更重視學生的創新能力與想像力，培養學生的創新思維
                         </p>
                     </div>
                 </div>
                 <div class="about-text-block">
                     <div class="icon-box border-none">
-                        <i class="flaticon-video-camera"></i>
+                        <i class="flaticon-flag"></i>
                     </div>
                     <div class="about-desc">
-                        <h4 class="title_size1">完整師培</h4>
+                        <h4 class="title_size1">實戰成品</h4>
                         <p class="font_size">
-                            嚴格要求教師的教材製作能力與教師的口才能力
+                            強調實作，讓學生能夠打造出屬於自己並且真實可用的程式作品
                         </p>
                     </div>
                 </div>
@@ -354,78 +320,7 @@
     </div>
 </section>
 
-<style>
-    .subscribe-form a {
-        position: absolute;
-        content: "";
-        right: 10px;
-        top: 126px;
-    }
-    .subscribe-form .form-control {
-        height: 65px;
-        padding-left: 20px;
-        background: #fff;
-        border-color: #f1f2f4;
-    }
-    .btn:hover{
-        color: #f7f7f7;
-    }
-    .form_height {
-        height:48px  !important;
-    }
-    .text-height{
-        height:174px  !important;
-    }
-    @media (max-width: 991px){
-        .form_height{
-            height:38px  !important;
-        }
-        .text-height{
-            height:144px  !important;
-        }
-        .subscribe-form a {
-            position: absolute;
-            content: "";
-            right: 10px;
-            top: 98px;
-        }
-    }
-    @media (max-width: 767px){
-        .section-padding-contact {
-            padding: 0px;
-        }
-        .container-contact {
-            max-width: 100% !important;
-        }
-        .form_height{
-            height:40px  !important;
-        }
-        .text-height{
-            height:140px  !important;
-        }
-        .subscribe-form a {
-            position: absolute;
-            content: "";
-            right: 10px;
-            top: 95px;
-        }
-    }
-    @media (max-width: 575px){
-        .form_height{
-            height:36px  !important;
-        }
-        .text-height{
-            height:120px  !important;
-        }
-        .subscribe-form a {
-            position: absolute;
-            content: "";
-            right: 10px;
-            top: 78px;
-        }
-    }
 
-</style>
 
 <section id = "contact" class="subscribe section-padding-contact pt-0">
     <div class="container container-contact">
@@ -501,7 +396,6 @@
 		</div>
 	</div>
 
-
 	<div class="footer-btm">
 		<div class="container">
 			<div class="row justify-content-center align-items-center">
@@ -528,7 +422,6 @@
 <script src="/assets/vendors/google-map/map.js"></script>
 <script src="/assets/js/script.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 <script>
     let click_num = 0
     $('.navbar-toggler').click(()=>{
@@ -539,15 +432,8 @@
             $('#navbar__').removeClass('nav')
         }
     })
-    let drop_num = 0
-    $('#navbar3').click(()=>{
-        drop_num +=1
-        if(drop_num % 2== 0){
-            $('#conceal-dropdown').addClass('conceal-dropdown')
-        }else{
-            $('#conceal-dropdown').removeClass('conceal-dropdown')
-        }
-    })
+
+
     $("#submit").click(()=>{
         axios.post('/',{
             email: $('#email').val(),
@@ -583,3 +469,4 @@
         })
     })
 </script>
+</html>

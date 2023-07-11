@@ -1,93 +1,5 @@
 {% extends 'index.html' %}
 
-
-{%block nav%}
-<link rel="stylesheet" href="/assets/css/navbar.css">
-
-<style>
-    .nav{
-        display: none;
-    }
-    .navbar-collapse {
-        flex-basis: 100%;
-        flex-grow: 0;
-        align-items: center;
-    }
-    @media(max-width: 991px){
-        .conceal-dropdown{
-            display: none !important;
-        }
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 4px 24px;
-            clear: both;
-            font-weight: 400;
-            color: #212529;
-            text-align: inherit;
-            white-space: nowrap;
-            background-color: transparent;
-            border: 0;
-        }
-    }
-</style>
-
-
-<div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" >
-                    <img src="/img/logo_4.png"  class="img-fluid">
-                </a>
-
-                <!-- Toggler -->
-
-                <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
-                    <span id = "navbar" class="fa fa-bars"></span>
-                </button>
-
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse " id="navbar__">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/#service" id="navbar3" role="button"  >
-                                服務項目<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div id ="conceal-dropdown" class="dropdown-menu conceal-dropdown" aria-labelledby="navbar3">
-                                <a class="dropdown-item " href="/more/2/">
-                                     c 語言程式設計
-                                </a>
-                                <a class="dropdown-item " href="/more/3/">
-                                    python 程式設計
-                                </a>
-                                <a class="dropdown-item " href="/more/1/">
-                                    python 程式設計
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/#contact" class="nav-link js-scroll-trigger">
-                                聯絡我們
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="/learning/" class="nav-link">
-                                學員登入
-                            </a>
-                        </li>
-                    </ul>
-
-<!--                    <div class="header-login">-->
-<!--                        <a href="#" class="btn btn-solid-border btn-sm ">Log In</a>-->
-<!--                        <a href="#" class="btn btn-main btn-sm">sign up</a>-->
-<!--                    </div>-->
-                </div> <!-- / .navbar-collapse -->
-            </div> <!-- / .container -->
-        </nav>
-    </div>
-</header>
-{%endblock%}
-
 {% block content %}
 <main class="site-main page-wrapper woocommerce single single-product">
     <section class="space-3">
@@ -98,22 +10,13 @@
                         <h2 class="font-weight-bold mb-4">登入</h2>
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="username">使用者名稱&nbsp;<span class="required">*</span></label>
-                            <input type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control"  id="username"   placeholder="使用者名稱">
+                            <input style="height:50px"  type="text" class="woocommerce-Input woocommerce-Input--text input-text form-control"  id="username"   placeholder="使用者名稱">
                         </p>
                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                             <label for="password">密碼&nbsp;<span class="required">*</span></label>
-                            <input class="woocommerce-Input woocommerce-Input--text input-text form-control" type="password"  id="password" placeholder="密碼">
+                            <input style="height:50px"  class="woocommerce-Input woocommerce-Input--text input-text form-control" type="password"  id="password" placeholder="密碼">
                         </p>
-<!--                        <p class="form-row">-->
-<!--                            <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="a414dce984"><input type="hidden" name="_wp_http_referer" value="/my-account/">-->
-                            <button type="button" onclick="login()" class="woocommerce-button button woocommerce-form-login__submit" >登入</button>
-<!--                            <label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">-->
-<!--                                <input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever"> <span>Remember me</span>-->
-<!--                            </label>-->
-<!--                        </p>-->
-<!--                        <p class="woocommerce-LostPassword lost_password">-->
-<!--                            <a href="#">Lost your password?</a>-->
-<!--                        </p>-->
+                        <button style="height:50px;margin-top:20px " type="button" onclick="login()" class="woocommerce-button button woocommerce-form-login__submit" >登入</button>
                     </form>
                 </div>
         </div>

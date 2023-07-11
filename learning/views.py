@@ -3,11 +3,11 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib import auth
 import json
-from main.models import Profile,Contact,Course,Student,Msg
+from main.models import Profile,Course,Student
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
 
+# 登入視圖
 @csrf_exempt
 def login(request):
     if request.method == 'GET':
@@ -21,7 +21,7 @@ def login(request):
             if user is not None:
                 if user.is_active:
                     try :
-                        profile = Profile.objects.filter(user = user).first()
+                        Profile.objects.filter(user = user).first()
                     except:
                         auth.logout(request)
                         return render(request,'login_.html')
@@ -34,175 +34,139 @@ def login(request):
     else:
         return JsonResponse({"errno":2})
 
+# course_list 依賴函式
+def collect_data(data,permission):
+    ele = {}
+    ele['meet'] = data.meet
+    ele['id'] = data.id
+    ele['teacher'] = data.teacher.user.username
+    ele['name'] = data.name
+    if data.photo:
+        ele['photo'] = data.photo.name
+    else:
+        ele['photo'] = 'course/course-lg.jpg'
+    if permission == 2:
+        students = []
+        for student in list(data.mystudent.all()):
+            students.append(student.profile.user.username)
+        ele['your_student'] = students
+    return ele
 
+# page視圖依賴函式
+def course_list(datas,permission,name):
+    courses = []
+    for data in datas:
+        courses.append(collect_data(data,permission))
+    if name == None:
+        # 待更改 courses[0] 可能有error
+        try:
+            return courses, courses[0]
+        except:
+            return courses,'no course'
+    # 尚未完成的功能
+    else:
+        main_course = Course.objects.filter(name = name).first()
+        if main_course:
+            course = []
+            course.append(collect_data(main_course,permission))
+            return courses, course[0]
+        else :
+            return courses,'no permission'
+
+# page視圖依賴函式
+def document_list(documents):
+    doc = []
+    for document in list(documents):
+        ele = {}
+        ele['title'] = document.title
+        ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
+        doc.append(ele)
+    return doc
+
+# page視圖依賴函式
+def load_document(course):
+    documents = course.document.order_by('-date').all()
+    doc = document_list(documents)
+
+# 加載入課程以及課程文件
+# errno = 0 學生頁面
+# errno = 1 所有使用者 在無課程時
+# errno = 2 教師或admin頁面
+# errno = 3 缺乏權限
+# permission = 1 學生
+# permission = 2 老師
+# profile.permission == 1 學生
+# profile.permission == 1 老師
 @login_required(login_url='/learning/login/')
 @csrf_exempt
 def page(request):
+    name = request.GET.get('name', None)
     if request.method == 'GET':
-        return render(request,'page.html')
+        return render(request,'learning.html')
     if request.method == 'POST':
         user = request.user
         try:
             profile = Profile.objects.filter(user = user).first()
         except :
-            return JsonResponse({'errno': 1})
+            return HttpResponse()
         if user.is_superuser :
-            datas = Course.objects.all()
-            courses = []
-            for data in datas:
-                ele = {}
-                ele['meet'] = data.meet
-                ele['id'] = data.id
-                ele['teacher'] = data.teacher.user.username
-                ele['name'] = data.name
-                if data.photo:
-                    ele['photo'] = data.photo.name
-                else:
-                    ele['photo'] = 'course/course-lg.jpg'
-                courses.append(ele)
-            documents = datas[0].document.order_by('-date').all()
-            doc = []
-            for document in list(documents):
-                ele = {}
-                ele['title'] = document.title
-                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
-                doc.append(ele)
-            id = datas[0].id
-            return JsonResponse({'errno': 0, 'courses': courses, 'document': doc, 'id': id})
+            datas = Course.objects.all()  # superuser 可以查看所有課程
+            courses,main = course_list(datas,2,name)
+            if main == 'no course':
+                return JsonResponse({'errno': 1})
+            elif main == 'no permission':
+                return JsonResponse({'errno': 3, 'courses': courses})
+            if name == None:
+                documents = datas[0].document.order_by('-date').all()
+            else:
+                course = Course.objects.filter(name=name).first()
+                documents = course.document.order_by('-date').all()
+            doc = document_list(documents)
+            print(courses,main)
+            return JsonResponse({'errno': 2, 'courses': courses, 'document': doc,'main':main})
+        # 學生權限
         if profile.permission == 1:
-            datas = Student.objects.filter(profile = profile).all()
-            courses=[]
-            for data in datas:
-                ele = {}
-                ele['meet'] = data.course.meet
-                ele['id'] = data.course.id
-                ele['teacher'] = data.course.teacher.user.username
-                ele['name'] = data.course.name
-                if data.course.photo :
-                    ele['photo'] = data.course.photo.name
-                else:
-                    ele['photo'] = 'course/course-lg.jpg'
-                courses.append(ele)
-            documents = datas[0].course.document.order_by('-date').all()
-            doc = []
-            for document in list(documents):
-                ele = {}
-                ele['title'] = document.title
-                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
-                doc.append(ele)
-            id = datas[0].course.id
-            return JsonResponse({'errno':0,'courses':courses,'document':doc,'id':id})
-        elif profile.promission == 2:
+            students = Student.objects.filter(profile = profile).all()
+            datas = []
+            for student in students:
+                datas.append(student.course)
+            courses,main = course_list(datas,1,name)
+            if main == 'no course':
+                return JsonResponse({'errno':1})
+            elif main == 'no permission':
+                return JsonResponse({'errno': 3, 'courses': courses})
+            if name == None:
+                documents = datas[0].document.order_by('-date').all()
+            else:
+                course = Course.objects.filter(name = name).first()
+                documents = course.document.order_by('-date').all()
+            doc = document_list(documents)
+            return JsonResponse({'errno':0,'courses':courses,'document':doc,'main':main})
+        # 教師權限
+        elif profile.permission == 3:
             datas = Course.objects.filter(teacher = profile).all()
-            courses = []
-            for data in datas:
-                ele = {}
-                ele['meet'] = data.meet
-                ele['id'] = data.id
-                ele['teacher'] = data.teacher.user.username
-                ele['name'] = data.name
-                if data.photo:
-                    ele['photo'] = data.photo.name
-                else:
-                    ele['photo'] = 'course/course-lg.jpg'
-                courses.append(ele)
-            documents = datas[0].document.order_by('-date').all()
-            doc = []
-            for document in list(documents):
-                ele = {}
-                ele['title'] = document.title
-                ele['path'] = str(document.title.encode('utf-8')).replace("\\", "").replace('\'', '')
-                doc.append(ele)
-            id = datas[0].id
-            return JsonResponse({'errno': 0, 'courses': courses, 'document': doc, 'id': id})
-
+            courses,main = course_list(datas,2,name)
+            if main == 'no course':
+                return JsonResponse({'errno':1})
+            elif main == 'no permission':
+                return JsonResponse({'errno': 3, 'courses': courses})
+            if name == None:
+                documents = datas[0].document.order_by('-date').all()
+            else:
+                course = Course.objects.filter(name = name).first()
+                documents = course.document.order_by('-date').all()
+            doc = document_list(documents)
+            return JsonResponse({'errno': 2, 'courses': courses, 'document': doc, 'main':main})
 
 @login_required(login_url='/learning/login/')
-@csrf_exempt
-def load(request,id):
-    course = Course.objects.filter(id=id).first()
-    data = []
-    ele={}
-    ele['meet'] = course.meet
-    ele['id'] = course.id
-    ele['teacher'] = course.teacher.user.username
-    ele['name'] = course.name
-    if course.photo:
-        ele['photo'] = course.photo.name
-    else:
-        ele['photo'] = 'course/course-lg.jpg'
-    data.append(ele)
-    documents = course.document.order_by('-date').all()
-    doc =[]
-    for document in list(documents):
-        ele={}
-        ele['title'] = document.title
-        ele['path'] = str(document.title.encode('utf-8')).replace("\\","").replace('\'','')
-        doc.append(ele)
-    id = course.id
-    return JsonResponse({'errno':0,'courses':data,'document':doc,'id':id})
-
-@csrf_exempt
-def chat(request,id):
-    course = Course.objects.filter(id=id).first()
-    profile = Profile.objects.filter(user = request.user).first()
-    if request.method == 'GET':
-        return render(request,'chat.html',locals())
-    if request.method == 'POST':
-        req = json.loads(request.body)
-        content = req['content']
-        if content == "":
-            return JsonResponse({'errno': 1})
-        else:
-            msg = Msg.objects.create(msg = content,auth = course,sender = profile)
-            msg.save()
-            return JsonResponse({'errno': 0, 'msg': msg.msg})
-
-
-@csrf_exempt
-def load_msg(request,id):
-    course = Course.objects.filter(id=id).first()
-    msgs = Msg.objects.filter(auth=course).order_by('date').all()
-    data = []
-    for ele in msgs:
-        d = dict()
-        d['date'] = ele.date.strftime('%H:%M')
-        if ele.msg != '':
-            d['msg'] = ele.msg
-            d['pic'] = False
-        else:
-            d['msg'] = ele.photo.name
-            d['pic'] = True
-        d['sender'] = ele.sender.user.username
-        if ele.sender.user == request.user:
-            d['self'] = True
-        else:
-            d['self'] = False
-        if ele.sender.permission == 3:
-            d['is_admin'] = True
-        else:
-            d['is_admin'] = False
-        data.append(d)
-    return JsonResponse({'errno': 0, 'data': data})
-
-
-@csrf_exempt
-def picture(request,id):
-    profile = Profile.objects.filter(user = request.user).first()
-    file = request.FILES.get('file')
-    course = Course.objects.filter(id=id).first()
-    photo = file.name
-    msg = Msg.objects.create(msg = "", auth=course, sender=profile,photo = file)
-    msg.save()
-    return JsonResponse({'errno': 0,'photo':photo})
-
 @csrf_exempt
 def search(request):
     req = json.loads(request.body)
     name = req['name']
+    courses = Course.objects.filter(name__contains=name).all()
+    profile = Profile.objects.filter(user = request.user).first()
+    datas = []
     if request.user.is_superuser:
-        courses = Course.objects.filter(name__contains=name).all()
-        datas = []
         for course in courses:
             data = {}
             data['name'] = course.name
@@ -211,12 +175,8 @@ def search(request):
             else:
                 data['photo'] = 'course/course-lg.jpg'
             data['teacher'] = course.teacher.user.username
-            data['id'] = course.id
             datas.append(data)
-        return JsonResponse({"errno": 0, 'datas': datas})
-    else:
-        courses = Course.objects.filter(name__contains = name).all()
-        datas=[]
+    elif profile.permission == 1:
         for course in courses:
             list = course.mystudent.all()
             for l in list:
@@ -228,6 +188,16 @@ def search(request):
                     else:
                         data['photo'] = 'course/course-lg.jpg'
                     data['teacher'] = course.teacher.user.username
-                    data['id'] = course.id
                     datas.append(data)
-        return JsonResponse({"errno":0,'datas':datas})
+    elif profile.permission == 3:
+        for course in courses:
+            if course.teacher.user == request.user:
+                data = {}
+                data['name'] = course.name
+                if course.photo.name:
+                    data['photo'] = course.photo.name
+                else:
+                    data['photo'] = 'course/course-lg.jpg'
+                data['teacher'] = course.teacher.user.username
+                datas.append(data)
+    return JsonResponse({"errno":0,'datas':datas})

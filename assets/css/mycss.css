@@ -79,7 +79,7 @@
         font-size: 23px !important;
     }
 
-    @media(max-width: 1200){
+    @media(max-width: 1200px){
         .feature-icon {
             font-size: 65px;
             line-height: 70px;
