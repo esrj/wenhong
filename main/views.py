@@ -36,7 +36,7 @@ def page(request):
         for resource in resources:
             dict = {}
             dict['name'] = resource.name
-            dict['file'] = resource.file.name
+            dict['url'] = resource.url
             resource_.append(dict)
         return JsonResponse({'errno':0,'chapter':chapter,'resource':resource_,"all":all})
     return render(request,'more.html',locals())

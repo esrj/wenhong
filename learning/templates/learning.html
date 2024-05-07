@@ -3,17 +3,22 @@
 
 
 {%block nav%}
-<ul class="navbar-nav mx-auto">
-    <li class="nav-item ">
-        <a href="/#contact" class="nav-link js-scroll-trigger">
-            聯絡我們
-        </a>
-    </li>
-</ul>
-<div class="header-login">
-    <a href = "/learning/" style="margin-left: 17px"  class="btn btn-solid-border btn-sm nav-btn">我的課程</a>
-    <a style="background-color:#21ad96;color:white"  onclick="logout()" class="btn btn-main btn-sm nav-btn logout_out_btn">登出</a>
-</div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/logo_4.png" alt="wenhong" class="img-fluid">
+    </a>
+    <div style="display: flex;align-items: center;">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item ">
+                <a href="/#contact" class="nav-link js-scroll-trigger">
+                    聯絡我們
+                </a>
+            </li>
+        </ul>
+        <div class="header-login">
+            <a href = "/learning/" style="margin-left: 17px"  class="btn btn-solid-border btn-sm nav-btn">我的課程</a>
+            <a style="background-color:#21ad96;color:white"  onclick="logout()" class="btn btn-main btn-sm nav-btn logout_out_btn">登出</a>
+        </div>
+    </div>
 {%endblock%}
 
 
@@ -207,9 +212,10 @@
         // 加載入課程文件
         let document = res.data.document
         if (document){
+            console.log(document)
             document.forEach(item=>{
                 $('#course_document').append(`
-                    <a style="margin: 8px;color: #3f3a64" href="/img/file/${item.path}/">
+                    <a target="_blank" style="margin: 8px;color: #3f3a64" href="${item.url}">
                         <img style="height:23px;margin: 8px;margin-left: -3.5px;margin-bottom: 8px;color: #3f3a64" src = "/assets/images/file.png">${item.title}
                     </a><br>
                 `)

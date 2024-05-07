@@ -188,7 +188,7 @@ def post(request):
     else:
         return JsonResponse({'errno': 2})
 
-# 上傳檔案頁面
+# 上傳教材頁面
 @login_required(login_url='/myadmin/login/')
 @csrf_exempt
 def upload(request):
@@ -202,23 +202,17 @@ def upload(request):
         courses = list(courses)
         return JsonResponse({'errno':0,'data':courses})
 
-# 上傳檔案api
-from django.core.files.base import ContentFile
+#  上傳教材
 @login_required(login_url='/myadmin/login/')
 @csrf_exempt
 def document(request):
     if request.method == 'POST':
-        file = request.FILES.get('file')
+        title = request.POST.get('title')
+        url = request.POST.get('url')
         id = request.POST.get('id')
-        if id !='請選擇課程' and file:
+        if id !='請選擇課程' and url:
             course = Course.objects.filter(id=id).first()
-            document = Document.objects.create(title = file.name, course = course)
-            full_filename = os.path.join('img','file', str(file.name.encode('utf-8')).replace("\\","").replace('\'',''))
-            fout = open(full_filename, 'wb+')
-            file_content = ContentFile(request.FILES.get('file').read())
-            for chunk in file_content.chunks():
-                fout.write(chunk)
-            fout.close()
+            document = Document.objects.create(url = url,title = title, course = course)
             document.save()
             return JsonResponse({'errno':0,'id':document.id})
         else:
@@ -230,13 +224,16 @@ def load_document(request,id):
     course = Course.objects.filter(id = id).first()
     documents = course.document.order_by('-date').all()
     documents = list(documents)
+    print(documents)
     data = []
     for document in documents:
         ele = {}
         ele['title'] = document.title
-        ele['path'] = str(document.title.encode('utf-8')).replace("\\","").replace('\'','')
+        ele['url'] = document.url
         ele['id'] = document.id
         data.append(ele)
+
+    print(data)
     return JsonResponse({'errno':0,'documents':data})
 
 # 刪除已上傳的資料

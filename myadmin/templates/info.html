@@ -174,10 +174,10 @@
             formdata.append('file',$('#picture')[0].files[0]);
         }catch{}
         console.log($('meet').val())
-        formdata.append('meet',$('#meet').val())
+        formdata.append('meet',$('#meet').val().trim())
         formdata.append('student',checkArr)
-        formdata.append('teacher',$('#SelectTeacher').val())
-        formdata.append('course_name',$('#course_name').val())
+        formdata.append('teacher',$('#SelectTeacher').val().trim())
+        formdata.append('course_name',$('#course_name').val().trim())
         console.log(formdata)
         axios({
             url:'/myadmin/post/',

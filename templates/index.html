@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="/assets/css/mycss.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <script src="/assets/vendors/jquery/jquery.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
 
@@ -33,62 +32,74 @@
 
 <link rel="stylesheet" href="/assets/css/navbar.css">
 <div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a href="/" class="navbar-brand" >
-                <img src="/img/logo_4.png"  class="img-fluid">
-            </a>
-            <button class="navbar-toggler" type="button" data-dimiss="collapse" data-toggle="collapse" data-target="#navbar__" aria-controls="navbar__" aria-expanded="false" aria-label="Toggle navigation">
-                <span id = "navbar" class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbar__">
-                {%block nav%}
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            服務項目
-                        </a>
-                        <div class=" dropdown-menu" >
-                            <span id="load_lecture">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid container-padding">
+            
+                {% block nav %}
+                <a class="navbar-brand" href="/">
+                    <img src="/img/logo_4.png" alt="wenhong" class="img-fluid">
+                </a>
 
-                            </span>
-                        </div>
-                    </li>
-                    <li class="nav-item ">
-                        <a href="/#contact" class="nav-link js-scroll-trigger">
-                            聯絡我們
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        {% if request.user.is_authenticated %}
-                        <a href="/learning/" class="nav-link">
-                            您的課程
-                        </a>
-                        {% else %}
-                        <a href="/learning/" class="nav-link">
-                            學員登入
-                        </a>
-                        {% endif %}
-                    </li>
-                </ul>
-                <script>
-                    axios.post('/load_lecture/').then((res)=>{
-                        lectures = res.data.lecture
-                        lectures.forEach(item=>{
-                            $('#load_lecture').append($(`
-                                <a  class="dropdown-margin dropdown-item " href="/page?theme=${item}">
-                                    ${item}
-                                </a>
-                            `))
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+
+                    
+
+                    <ul class="navbar-nav mx-auto">
+
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                服務項目
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbar3" id="load_lecture">
+
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#contact" class="nav-link js-scroll-trigger">
+                                聯絡我們
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item ">
+                            {% if request.user.is_authenticated %}
+                            <a href="/learning/" class="nav-link">
+                                您的課程
+                            </a>
+                            {% else %}
+                            <a href="/learning/" class="nav-link">
+                                學員登入
+                            </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <script>
+                        axios.post('/load_lecture/').then((res)=>{
+                            lectures = res.data.lecture
+                            lectures.forEach(item=>{
+                                $('#load_lecture').append($(`
+                                    <a  class="dropdown-margin dropdown-item " href="/page?theme=${item}">
+                                        ${item}
+                                    </a>
+                                `))
+                            })
                         })
-                    })
-                </script>
-            {%endblock%}
+                    </script>    
 
+                   
+                {% endblock %}
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 </div>
+
 
 
 {% block content %}
@@ -124,11 +135,11 @@
                         <a href= "/page?theme=python 程式設計">
                             <img src="/assets/images/blog/blog1.jpg" alt="" class="img-fluid">
                         </a>
-                        <div class="course-price ">$700/hr </div>
+                        <div class="course-price ">$900/hr </div>
                     </div>
                     <div class="course-content">
-                        <a href= "/page?theme=python 程式設計"><span class="course-cat course-cat-size">c、python 基礎程式語言</span></a>
-                        <h4 class= "course_size"><a href= "/more/2/">訓練資訊的邏輯思考，帶領你進入電腦的世界</a></h4>
+                        <a href= "/page?theme=python 程式設計"><span class="course-cat course-cat-size">基礎程式語言</span></a>
+                        <h4 class= "course_size"><a href= "/page?theme=python 程式設計">訓練資訊的邏輯思考，帶領你進入電腦的世界</a></h4>
                     </div>
                 </div>
             </div>
@@ -138,11 +149,11 @@
                         <a href= "/page?theme=django 網頁設計">
                             <img src="/assets/images/blog/blog2.jpg" alt="" class="img-fluid">
                         </a>
-                        <div class="course-price ">$800/hr </div>
+                        <div class="course-price ">$1000/hr </div>
                     </div>
                     <div class="course-content">
-                        <a href= "/page?theme=django 網頁設計"><span class="course-cat course-cat-size">Django 網頁設計</span></a>
-                        <h4 class= "course_size"><a href= "/more/1/">設計屬於你的網頁，手把手帶領你做出成品</a></h4>
+                        <a href= "/page?theme=django 網頁設計"><span class="course-cat course-cat-size">網頁設計</span></a>
+                        <h4 class= "course_size"><a href= "/page?theme=django 網頁設計">設計屬於你的網頁，手把手帶領你做出成品</a></h4>
                     </div>
                 </div>
             </div>
@@ -150,14 +161,13 @@
             <div  class=" col-lg-4 col-md-6 display-course right-course">
                 <div style="border:1px solid #eef2fb" class="course-block">
                     <div style="border-radius: 0px;" class="course-img">
-                        <a href= "#">
+                        <a href= "/#contact">
                             <img src="/assets/images/blog/blog3.jpg" alt="" class="img-fluid">
                         </a>
-                        <div class="course-price ">$？ </div>
                     </div>
                     <div  class="course-content">
-                        <a href= "#"><span class="course-cat course-cat-size">其他課程</span></a>
-                        <h4 class= "course_size"><a href= "#">其他與電腦程式相關課程皆可以詢問</a></h4>
+                        <a href= "/#contact"><span class="course-cat course-cat-size">其他課程</span></a>
+                        <h4 class= "course_size"><a href= "/#contact">其他電腦相關課程，如大學程式設計、資料結構等皆可以詢問</a></h4>
                     </div>
                 </div>
             </div>
@@ -411,8 +421,6 @@
 <div class="fixed-btm-top">
 	<a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
 </div>
-{% endblock %}
-
 <script src="/assets/vendors/jquery/jquery.js"></script>
 <script src="/assets/vendors/bootstrap/bootstrap.js"></script>
 <script src="/assets/vendors/counterup/waypoint.js"></script>
@@ -422,6 +430,9 @@
 <script src="/assets/vendors/google-map/map.js"></script>
 <script src="/assets/js/script.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% endblock %}
+
+
 <script>
     let click_num = 0
     $('.navbar-toggler').click(()=>{
@@ -468,5 +479,6 @@
             }
         })
     })
+
 </script>
 </html>

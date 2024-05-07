@@ -2,314 +2,7 @@
 
 
 {% block content %}
-<!--<link rel="stylesheet" href="/assets/css/single_course.css">-->
-<style>
-.recent-posts li {
-        clear: both;
-        margin-bottom: 0px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 30px;
-}
-.img-fluid1 {
-    max-width: 100%;
-    height: 240px !important;
-    object-fit: cover;
-}
-@media (max-width: 1200px) {
-    .img-fluid1 {
-        max-width: 100%;
-        height: 210px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 991px) {
-    .course-img{
-        height: auto;
-        width: 70px;
-        border-radius: 5%;
-    }
-    .widget-post-thumb {
-        width: 80px;
-        border-radius: 5px;
-        margin-right: 15px;
-        overflow: hidden;
-        float: left;
-    }
-    .course_title_size{
-        font-size: 18px !important;
-    }
-    .display-more1 {
-        max-width: 100% !important;
-        padding-left: 90px;
-        padding-right: 90px;
-        padding-bottom: 25px;
-    }
-    .display-more2 {
-        max-width: 100% !important;
-        padding-left: 90px;
-        padding-right: 90px;
-    }
-
-    .img-fluid1 {
-        max-width: 100%;
-        height: 290px !important;
-        object-fit: cover;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 30px 30px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 30px;
-    }
-}
-@media (max-width: 868px) {
-    .widget-post-thumb {
-        width: 80px;
-        border-radius: 5px;
-        margin-right: 10px;
-        overflow: hidden;
-        float: left;
-    }
-    .course-img{
-        height: auto;
-        width: 70px;
-        border-radius: 5%;
-    }
-    .course_title_size{
-        font-size: 20px !important;
-    }
-    .display-more1 {
-        max-width: 100% !important;
-        padding-left: 100px;
-        padding-right: 100px;
-        padding-bottom: 25px;
-    }
-    .display-more2 {
-        max-width: 100% !important;
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 20px 20px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 20px;
-    }
-}
-@media (max-width: 767px) {
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 15px 15px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 15px;
-    }
-    .display-more1 {
-        max-width: 100% !important;
-        padding-right: 85px;
-        padding-left: 85px;
-    }
-    .display-more2 {
-        max-width: 100% !important;
-        padding-right: 85px;
-        padding-left: 85px;
-    }
-    .container1{
-        max-width: 95% !important;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 280px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 710px) {
-    .display-more1 {
-        max-width: 100% !important;
-        padding-right: 60px;
-        padding-left: 60px;
-    }
-    .display-more2 {
-        max-width: 100% !important;
-        padding-right: 60px;
-        padding-left: 60px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 250px !important;
-        object-fit: cover;
-    }
-    .container1{
-        max-width: 95% !important;
-    }
-}
-@media (max-width: 637px) {
-    .display-more1 {
-        max-width: 100% !important;
-        padding-right: 55px;
-        padding-left: 55px;
-    }
-    .display-more2 {
-        max-width: 100% !important;
-        padding-right: 55px;
-        padding-left: 55px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 240px !important;
-        object-fit: cover;
-    }
-
-}
-@media (max-width: 575px) {
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 50px 10px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 50px;
-    }
-    .container1{
-        max-width: 70% !important;
-    }
-    .display-more1{
-        max-width: 100% !important;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    .display-more2{
-        max-width: 100% !important;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 220px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 535px) {
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 40px 10px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 40px;
-    }
-    .container1{
-        max-width: 75% !important;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 240px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 500px) {
-    .course-sidebar.course-sidebar-2 .course-widget ul {
-        padding: 0px 36px 10px;
-    }
-    .course-sidebar.course-sidebar-2 .course-widget .buy-btn {
-        padding: 0px 36px;
-    }
-    .container1{
-        max-width: 80% !important;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 235px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 480px) {
-    .course_title_size{
-        font-size: 16px !important;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 230px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 460px) {
-    .display-more1{
-        max-width: 100% !important;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    .display-more2{
-        max-width: 100% !important;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 220px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 440px) {
-    font-size2{
-        font-size: 13.5px !important;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 215px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 420px) {
-    font-size2{
-        font-size: 12.5px !important;
-    }
-    .container1{
-        max-width: 90% !important;
-    }
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 210px !important;
-        object-fit: cover;
-    }
-}
-@media (max-width: 400px) {
-    .course-thumbnail {
-        margin-bottom: 0px;
-    }
-    .img-fluid1 {
-        max-width: 100%;
-        height: 200px !important;
-        object-fit: cover;
-    }
-    .edutim-course-content .learn-press-nav-tabs .course-nav a {
-        color: #ababab;
-        font-size: 16px;
-        font-weight: 700;
-        transition: all .4s ease 0s;
-        border: 0px;
-        border-bottom: 2px solid transparent;
-        padding: 15px 20px;
-    }
-}
-</style>
+<link href="/assets/css/more_info.css" rel="stylesheet">
 <section class="page-header">
     <div class="container ">
         <div class="row justify-content-center">
@@ -386,7 +79,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-4 col-md-4 ">
                                         <div class="instructor-image">
-                                            <img src="/assets/images/blog/author.jpg" alt="" class="img-fluid">
+                                            <img src="/assets/images/author.jpg" alt="" class="img-fluid">
                                         </div>
                                     </div>
                                     <div class="col-lg-8 col-md-8">
@@ -394,7 +87,7 @@
                                             <h4>{{lecture.teacher}}</h4>
                                             <p>教學科目：{{lecture.name}}</p>
                                             <p>簡歷：{{lecture.teacher_info}}</p>
-                                            <p>聯絡方式：{{lecture.teacher_email}}</p>
+                                            <p>聯絡方式：<a style="color: #525967" href="mailto:{{lecture.teacher_email}}">{{lecture.teacher_email}}</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -445,16 +138,16 @@
         </div>
     </div>
 </section>
-<script src="/assets/vendors/jquery/jquery.js"></script>
-<script src="/assets/vendors/bootstrap/bootstrap.js"></script>
-<script src="/assets/vendors/counterup/waypoint.js"></script>
-<script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>
-<script src="/assets/vendors/jquery.isotope.js"></script>
-<script src="/assets/vendors/owl/owl.carousel.min.js"></script>
-<script src="/assets/vendors/google-map/map.js"></script>
-<script src="/assets/js/script.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+{#<script src="/assets/vendors/jquery/jquery.js"></script>#}
+{#<script src="/assets/vendors/bootstrap/bootstrap.js"></script>#}
+{#<script src="/assets/vendors/counterup/waypoint.js"></script>#}
+{#<script src="/assets/vendors/counterup/jquery.counterup.min.js"></script>#}
+{#<script src="/assets/vendors/jquery.isotope.js"></script>#}
+{#<script src="/assets/vendors/owl/owl.carousel.min.js"></script>#}
+{#<script src="/assets/vendors/google-map/map.js"></script>#}
+{#<script src="/assets/js/script.js"></script>#}
+{#<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>#}
 <script>
     url = location.href
     console.log(url)
@@ -475,7 +168,7 @@
             id += 1
             $('#resource').append($(`
                 <li class="course-item has-status course-item-lp_lesson">
-                    <a class="section-item-link" href="/img/${item.file}">
+                    <a class="section-item-link" target="_blank" href="${item.url}">
                         <span class="item-name">${item.name}</span>
                         <div class="course-item-meta">
                             <span class="item-meta duration">lesson ${id}</span>

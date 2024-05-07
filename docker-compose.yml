@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Sam890530
+      MYSQL_DATABASE: wenhong
+      MYSQL_USER: sam
+      MYSQL_PASSWORD: Sam890530
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+
+  web:
+    image: sam890530/wenhong
+    restart: always
+    environment:
+      - DEBUG=True  # Set this to False in production
+      - DATABASE_HOST=mysql
+      - DATABASE_NAME=wenhong
+      - DATABASE_USER=sam
+      - DATABASE_PASSWORD=Sam890530
+      - DATABASE_PORT=3306
+
+    ports:
+      - "8888:8000"
+
+

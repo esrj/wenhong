@@ -94,11 +94,10 @@
                     </select>
                 </form>
                 <div id="list"></div>
-                <form id="form" enctype="multipart/form-data">
-                    <input style="margin-top: 10px;" id="file" name="file"  class="form-control" type="file">
-                    <div id="course_index"></div>
-                    <button style="margin-left: 0px;margin-bottom: 40px" type="button" onclick="upload__()" class="btn btn-light">提交</button>
-                </form>
+                <input style="margin-top: 10px;height: 40px" id="url" name="file"  class="form-control" type="text" placeholder="上傳連結">
+                <input style="margin-top: 10px;height: 40px" id="title" name="file"  class="form-control" type="text" placeholder="名稱">
+                <a style="color:#212529;background-color: #f5f5f5;border: 0;border-radius: 5px" class="btn btn-primary" onclick="upload__()">上傳</a>
+
                 <div id ="temp"></div>
                 <div id = "course">
 
@@ -134,11 +133,10 @@
     function upload__(){
         try{
 
-            let formdata = new FormData();
-            const file =  $('#form')[0][0].files[0]
-            console.log(file)
-            const id = $('#all_course')[0]['value']
-            formdata.append('file',$('#form')[0][0].files[0]);
+            const title =  $('#title').val()
+            const formdata = new FormData();
+            formdata.append('url',$('#url').val().trim());
+            formdata.append('title',$('#title').val().trim());
             formdata.append('id',$('#all_course')[0]['value'])
             axios({
                 url:'/myadmin/document/',
@@ -146,11 +144,11 @@
                 data:formdata,
                 headers:{'Content-Type': 'multipart/form-data;charset=UTF-8'}
             }).then(res=>{
-                if(res.data.errno == 0){
+                if(res.data.errno === 0){
                     swal('成功新增','','success')
                     $('#list').append($(`
                         <div id="document-${res.data.id}" style="margin-top: 15px;margin-bottom: 15px">
-                            <a style="margin-left: 5px;color: #017496">${file}</a> <a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${res.data.id})"><i class="fa fa-window-close"></i></a>
+                            <a style="margin-left: 5px;color: #017496">${title}</a> <a style="margin-right: 5px;color: #017496;float: right" onclick="delete_(${res.data.id})"><i class="fa fa-window-close"></i></a>
                         </div>
                     `))
                 }

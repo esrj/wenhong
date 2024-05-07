@@ -22,14 +22,14 @@ class Contact(models.Model):
     is_contact = models.BooleanField(default = False)
     is_sign = models.BooleanField(default = False)
 
-# 課程資訊
+# 學生 課程資訊
 class Course(models.Model):
     teacher = models.ForeignKey(Profile,on_delete = models.CASCADE)
     meet = models.TextField(null=True,blank=True)
     name = models.TextField()
     photo = models.ImageField(upload_to='course', height_field=None, width_field=None, max_length=100,null=True,blank=True)
 
-# 學生和課程間 多對多模型
+# 學生 和課程間 多對多模型
 class Student(models.Model):
     course = models.ForeignKey(Course,on_delete = models.CASCADE,related_name = 'mystudent')
     profile = models.ForeignKey(Profile,on_delete = models.CASCADE,related_name = 'mycourse')
@@ -37,7 +37,7 @@ class Student(models.Model):
 # 學生資源(講義，文件)
 class Document(models.Model):
     title = models.TextField()
-    upload = models.FileField(upload_to = 'file',null = True,blank = True)
+    url = models.TextField(null = True,blank = True)
     date = models.DateField(auto_now_add =True)
     course = models.ForeignKey(Course,on_delete =models.CASCADE,null = True,blank=True,related_name = 'document')
 
@@ -55,9 +55,9 @@ class Lecture(models.Model):
     teacher_info = models.TextField(null = True,blank = True)
     teacher_email = models.CharField(max_length=30,null = True,blank = True)
 
-# 公開資源(課程)文件
+# 公開資源(課程)教材
 class Resource(models.Model):
     name = models.TextField()
-    file = models.FileField(upload_to = 'file',null = True,blank = True)
+    url = models.TextField(null = True,blank = True)
     lecture = models.ForeignKey(Lecture,on_delete = models.CASCADE , related_name = "resource")
 
