@@ -7,8 +7,6 @@ def document_list(documents):
         ele = {}
         ele['title'] = document.title
         ele['url'] = document.url
-        print(document.url)
-        print(document.title)
         doc.append(ele)
     return doc
 def collect_data(data,permission):

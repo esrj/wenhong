@@ -268,7 +268,7 @@ Banner Area
 }
 
 .page-header {
-  padding: 90px 0px;
+  padding: 150px 0px;
   background: #F4F5F8;
   position: relative;
 }
@@ -440,11 +440,13 @@ Header TopBar
 
 .site-navigation {
   padding: 12px 0px;
-  border-bottom: 1px solid #EBF4F8;
+  border-bottom: 1px solid transparent;
+  background-color: #ffffff;
 }
 
 .navbar {
   padding: 0px;
+  background-color:#FFFFFF;
 }
 
 .navbar-brand {
@@ -452,8 +454,13 @@ Header TopBar
   padding: 0px;
 }
 
+.nav-at-top img {
+  display: none !important;
+}
+
 .navbar-brand img {
   width: 125px;
+  display: block;
 }
 
 .navbar-brand h3 {
@@ -576,11 +583,33 @@ Header TopBar
 /* ================
  BAnner
 ================*/
-.banner {
+/* .banner {
   padding: 140px 0px;
-  background: url("/assets/images/banner/bg-2.jpg") center center no-repeat;
+  background: url("/assets/images/banner/bg.mp4") center center no-repeat;
   background-size: cover;
   position: relative;
+} */
+.banner {
+    position: relative;
+    padding: 475px 0;
+    overflow: hidden;
+}
+
+/* background video */
+.banner .bg-video {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;  /* 放在背景 */
+}
+
+/* 讓前景保持正常 */
+.banner-content {
+    position: relative;
+    z-index: 2;
 }
 
 .banner:before {

@@ -39,7 +39,7 @@ def login(request):
 # errno = 1 所有使用者 在無課程時
 # errno = 2 教師或admin頁面
 # errno = 3 缺乏權限
-from .util import document_list,course_list,collect_data
+from .util import document_list,course_list
 @login_required(login_url='/learning/login/')
 @csrf_exempt
 def page(request):
@@ -48,10 +48,9 @@ def page(request):
         return render(request,'learning.html')
     if request.method == 'POST':
         user = request.user
-        try:
-            profile = Profile.objects.filter(user = user).first()
-        except :
-            return HttpResponse()
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None and not user.is_superuser:
+            return JsonResponse({'errno': 3})
         if user.is_superuser :
             datas = Course.objects.all()  # superuser 可以查看所有課程
             courses,main = course_list(datas,2,name)
@@ -106,7 +105,9 @@ def search(request):
     req = json.loads(request.body)
     name = req['name']
     courses = Course.objects.filter(name__contains=name).all()
-    profile = Profile.objects.filter(user = request.user).first()
+    profile = Profile.objects.filter(user=request.user).first()
+    if profile is None and not request.user.is_superuser:
+        return JsonResponse({'errno': 3, 'datas': []})
     datas = []
     if request.user.is_superuser:
         for course in courses:

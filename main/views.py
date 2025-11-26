@@ -26,7 +26,9 @@ def index(request):
 @csrf_exempt
 def page(request):
     theme = request.GET.get('theme', None)
-    lecture = Lecture.objects.filter(name = theme).first()
+    lecture = Lecture.objects.filter(name=theme).first()
+    if lecture is None:
+        return HttpResponse('課程不存在', status=404)
     resources = lecture.resource.all()
     if request.method == 'POST':
         all = list(Lecture.objects.all().values('id','name','fee','image'))

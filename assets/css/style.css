@@ -578,7 +578,7 @@ Header TopBar
 ================*/
 .banner {
   padding: 140px 0px;
-  background: url("../images/banner/bg-2.jpg") center center no-repeat;
+  background: url("../images/banner/bg.mp4") center center no-repeat;
   background-size: cover;
   position: relative;
 }

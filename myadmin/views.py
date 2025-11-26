@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib import auth
-from main.models import Contact
 from main.models import Contact,Profile,Course,Student,Document
 from django.views.decorators.csrf import csrf_exempt
 import json
-import os
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 # 初始介面
 @login_required(login_url='/myadmin/login/')
@@ -117,11 +116,10 @@ def create(request):
                     profile = Profile.objects.create(user=user,permission = permission)
                     profile.save()
                     return JsonResponse({'errno':0})
-                except Exception as e:
-                    if e == 'UNIQUE constraint failed: auth_user.username':
-                        return JsonResponse({'errno':3})
-                    else:
-                        return JsonResponse({'errno': 4})
+                except IntegrityError:
+                    return JsonResponse({'errno':3})
+                except Exception:
+                    return JsonResponse({'errno': 4})
             else:
                 return JsonResponse({'errno':1})
         else:
@@ -164,29 +162,29 @@ def info(request):
 @login_required(login_url='/myadmin/login/')
 @csrf_exempt
 def post(request):
-    try:
-        file = request.FILES.get('file')
-    except:
-        file = None
+    file = request.FILES.get('file')
     meet = request.POST.get('meet')
-    students = request.POST.get('student').split(',')
-    course = request.POST.get('course_name')
-    if meet and students and course:
-        if  Course.objects.filter(name = course).first() != None:
-            return JsonResponse({'errno': 1})
-        teacher = request.POST.get('teacher')
-        user_t = User.objects.filter(username = teacher).first()
-        profile_t = Profile.objects.filter(user = user_t).first()
-        course = Course.objects.create(teacher = profile_t,name = course,photo = file,meet = meet )
-        course.save()
-        for student in students:
-            user_s = User.objects.filter(username = student).first()
-            profile_s = Profile.objects.filter(user = user_s).first()
-            student_ = Student.objects.create(course = course,profile = profile_s)
-            student_.save()
-        return JsonResponse({'errno': 0})
-    else:
+    students_raw = request.POST.get('student') or ''
+    students = [s for s in students_raw.split(',') if s]
+    course_name = request.POST.get('course_name')
+    teacher_name = request.POST.get('teacher')
+    if not (meet and students and course_name and teacher_name):
         return JsonResponse({'errno': 2})
+    if Course.objects.filter(name=course_name).first() is not None:
+        return JsonResponse({'errno': 1})
+    user_t = User.objects.filter(username=teacher_name).first()
+    profile_t = Profile.objects.filter(user=user_t).first()
+    if profile_t is None:
+        return JsonResponse({'errno': 2})
+    course = Course.objects.create(teacher=profile_t, name=course_name, photo=file, meet=meet)
+    course.save()
+    for student in students:
+        user_s = User.objects.filter(username=student).first()
+        profile_s = Profile.objects.filter(user=user_s).first()
+        if profile_s:
+            student_ = Student.objects.create(course=course, profile=profile_s)
+            student_.save()
+    return JsonResponse({'errno': 0})
 
 # 上傳教材頁面
 @login_required(login_url='/myadmin/login/')
@@ -224,7 +222,6 @@ def load_document(request,id):
     course = Course.objects.filter(id = id).first()
     documents = course.document.order_by('-date').all()
     documents = list(documents)
-    print(documents)
     data = []
     for document in documents:
         ele = {}
@@ -233,7 +230,6 @@ def load_document(request,id):
         ele['id'] = document.id
         data.append(ele)
 
-    print(data)
     return JsonResponse({'errno':0,'documents':data})
 
 # 刪除已上傳的資料
@@ -243,5 +239,3 @@ def delete_(request,id):
     document = Document.objects.filter(id=id).first()
     document.delete()
     return JsonResponse({'errno':0})
-
-

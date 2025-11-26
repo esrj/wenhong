@@ -1,5 +1,52 @@
 {% extends 'index.html' %}
 
+{% block nav %}
+    <a class="navbar-brand" href="/">
+        <img src="/img/logo_4.png" alt="wenhong" class="img-fluid" style="display: block !important;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMenu" >
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #3f3a64;">
+                                服務項目
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbar3" id="load_lecture"></div>
+            </li>
+            <li class="nav-item ">
+                <a href="#contact" class="nav-link js-scroll-trigger" style="color: #3f3a64;">
+                                聯絡我們
+                </a>
+            </li>
+            <li class="nav-item ">
+                {% if request.user.is_authenticated %}
+                    <a href="/learning/" class="nav-link" style="color: #3f3a64;">
+                                您的課程
+                    </a>
+                {% else %}
+                    <a href="/learning/" class="nav-link" style="color: #3f3a64;">
+                                學員登入
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+        <script>
+            axios.post('/load_lecture/').then((res)=>{
+                lectures = res.data.lecture
+                lectures.forEach(item=>{
+                    $('#load_lecture').append($(`
+                        <a  class="dropdown-margin dropdown-item " href="/page?theme=${item}">
+                            ${item}
+                        </a>
+                    `))
+                })
+            })
+        </script>   
+    </div> 
+{% endblock %}
 
 {% block content %}
 <link href="/assets/css/more_info.css" rel="stylesheet">
